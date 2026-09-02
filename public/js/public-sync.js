@@ -1,5 +1,14 @@
 // Public Website Supabase & CMS Sync Engine
 
+// Cloudinary image optimization: auto-format (WebP/AVIF), auto-quality, optional resize
+function optimizeCloudinaryUrl(url, maxWidth) {
+    if (!url || !url.includes('res.cloudinary.com')) return url;
+    // Already has transforms? Skip.
+    if (url.includes('/f_auto') || url.includes('/q_auto')) return url;
+    const transforms = maxWidth ? `f_auto,q_auto,w_${maxWidth}` : 'f_auto,q_auto';
+    return url.replace('/upload/', `/upload/${transforms}/`);
+}
+
 window.addEventListener('DOMContentLoaded', function () {
     initPublicSync();
     initEnquiryFormHandler();
@@ -88,7 +97,8 @@ async function syncHeroSection() {
             wrapper.setAttribute('data-current-slides', newSerialized);
             let html = '';
             slideImages.forEach((imgUrl, i) => {
-                html += `<div class="hero-slide ${i === 0 ? 'active' : ''}" style="background-image: url('${imgUrl}'); background-size: cover; background-position: center center; background-repeat: no-repeat;"></div>`;
+                const optimized = optimizeCloudinaryUrl(imgUrl, 1600);
+                html += `<div class="hero-slide ${i === 0 ? 'active' : ''}" style="background-image: url('${optimized}'); background-size: cover; background-position: center center; background-repeat: no-repeat;"></div>`;
             });
             html += `<div class="hero-bg-overlay"></div>`;
             wrapper.innerHTML = html;
@@ -314,6 +324,7 @@ async function syncCategoriesSection() {
             if (!catImg || catImg.includes('map') || catImg.includes('logo-symbol') || catImg.includes('collection-1') || defaultCategoryImages[catSlug]) {
                 catImg = defaultCategoryImages[catSlug] || defaultCategoryImages[cat.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')] || catImg || 'images/categories/cat_workstations.jpg';
             }
+            catImg = optimizeCloudinaryUrl(catImg, 600);
 
             // Find products belonging to this category
             const catProducts = products.filter(p => p.is_visible !== false && (
@@ -531,12 +542,13 @@ function renderProductGrid(container, items) {
         const safeDesc = (prod.description || '').replace(/'/g, "\\'").replace(/\n/g, ' ');
         const safePrice = (prod.price || 'Enquire for Price').replace(/'/g, "\\'");
         const safeSubcat = (prod.subcategory || 'Product').replace(/'/g, "\\'");
+        const optimizedImg = optimizeCloudinaryUrl(prod.main_image || '', 500);
 
         html += `
         <div class="col-lg-4 col-md-6">
             <div class="card border h-100 shadow-sm rounded-4 overflow-hidden product-card-hover bg-white position-relative">
                 <div class="cursor-pointer text-center p-3 border-bottom bg-light position-relative" onclick="openProductDetailModal('${safeName}', '${safeImg}', '${safeDesc}', '${safePrice}', '${safeSubcat}')">
-                    <img src="${prod.main_image}" alt="${prod.name}" class="card-img-top" style="background: #ffffff; max-height: 270px; object-fit: contain; padding: 10px;">
+                    <img src="${optimizedImg}" alt="${prod.name}" class="card-img-top" style="background: #ffffff; max-height: 270px; object-fit: contain; padding: 10px;" loading="lazy">
                     <span class="position-absolute top-0 end-0 m-3 badge bg-dark text-white opacity-75 fs-7">🔍 Quick View</span>
                 </div>
                 <div class="card-body p-4 d-flex flex-column">

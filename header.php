@@ -33,6 +33,12 @@
     <link rel="shortcut icon" href="images/logo/logo-mark.png?v=2">
     <link rel="apple-touch-icon-precomposed" href="images/logo/logo-mark.png?v=2">
 
+    <!-- Preconnect to CDN for instant image loads -->
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
+    <!-- Preload first hero slide image for instant display -->
+    <link rel="preload" as="image" href="https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1600/v1788282238/lsceaw7eu2jmpvgv4le1.jpg" fetchpriority="high">
+
     <!-- Supabase SDK & CMS Public Sync Engine -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
     <script src="js/supabase-config.js" defer></script>

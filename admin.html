@@ -12,6 +12,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Custom Admin Styling -->
     <link rel="stylesheet" href="/admin/css/admin.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        .password-toggle-wrap { position: relative; }
+        .password-toggle-btn {
+            position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+            background: none; border: none; padding: 0; cursor: pointer;
+            color: #888; font-size: 18px; line-height: 1; z-index: 2;
+        }
+        .password-toggle-btn:hover { color: #d32f2f; }
+        .password-toggle-wrap input[type="password"],
+        .password-toggle-wrap input[type="text"] { padding-right: 40px; }
+    </style>
 </head>
 <body class="admin-body">
 
@@ -36,7 +49,10 @@
                         <label class="form-label fs-7 fw-semibold text-dark mb-0">Password</label>
                         <a href="javascript:void(0)" id="showForgotPassBtn" class="fs-7 text-danger text-decoration-none fw-semibold">Forgot Password?</a>
                     </div>
-                    <input type="password" id="loginPassword" class="form-control py-2" placeholder="••••••••" required value="">
+                    <div class="password-toggle-wrap">
+                        <input type="password" id="loginPassword" class="form-control py-2" placeholder="••••••••" required value="">
+                        <button type="button" class="password-toggle-btn" data-target="loginPassword" tabindex="-1"><i class="bi bi-eye-slash"></i></button>
+                    </div>
                 </div>
                 <button type="submit" id="adminSignInBtn" class="btn btn-danger w-100 py-2 fw-bold text-uppercase shadow-sm" style="background-color: #d32f2f; border: none;">
                     Sign In to Dashboard &rarr;
@@ -83,11 +99,17 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label fs-7 fw-semibold text-dark">New Password</label>
-                        <input type="password" id="newPasswordInput" class="form-control py-2" placeholder="At least 6 characters" required minlength="6">
+                        <div class="password-toggle-wrap">
+                            <input type="password" id="newPasswordInput" class="form-control py-2" placeholder="At least 6 characters" required minlength="6">
+                            <button type="button" class="password-toggle-btn" data-target="newPasswordInput" tabindex="-1"><i class="bi bi-eye-slash"></i></button>
+                        </div>
                     </div>
                     <div class="mb-4">
                         <label class="form-label fs-7 fw-semibold text-dark">Confirm New Password</label>
-                        <input type="password" id="confirmPasswordInput" class="form-control py-2" placeholder="Re-enter new password" required minlength="6">
+                        <div class="password-toggle-wrap">
+                            <input type="password" id="confirmPasswordInput" class="form-control py-2" placeholder="Re-enter new password" required minlength="6">
+                            <button type="button" class="password-toggle-btn" data-target="confirmPasswordInput" tabindex="-1"><i class="bi bi-eye-slash"></i></button>
+                        </div>
                     </div>
                     <button type="submit" id="submitResetBtn" class="btn btn-danger w-100 py-2 fw-bold text-uppercase shadow-sm mb-2" style="background-color: #d32f2f; border: none;">
                         Save New Password &rarr;
@@ -585,6 +607,24 @@
     <script src="/js/supabase-config.js"></script>
     <!-- Admin App Controller -->
     <script src="/admin/js/admin-app.js"></script>
+
+    <!-- Password Visibility Toggle -->
+    <script>
+        document.querySelectorAll('.password-toggle-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var targetId = this.getAttribute('data-target');
+                var input = document.getElementById(targetId);
+                var icon = this.querySelector('i');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.className = 'bi bi-eye';
+                } else {
+                    input.type = 'password';
+                    icon.className = 'bi bi-eye-slash';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
 
