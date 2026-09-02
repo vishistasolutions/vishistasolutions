@@ -59,6 +59,23 @@ const server = http.createServer((req, res) => {
     let parsedUrl = url.parse(req.url);
     let pathname = decodeURIComponent(parsedUrl.pathname);
 
+    // Handle /api/* serverless endpoints locally
+    if (pathname.startsWith('/api/')) {
+        const apiName = pathname.replace('/api/', '').split('/')[0];
+        const apiFile = path.join(ROOT_DIR, 'api', `${apiName}.js`);
+        if (fs.existsSync(apiFile)) {
+            try {
+                delete require.cache[require.resolve(apiFile)];
+                const handler = require(apiFile);
+                return handler(req, res);
+            } catch (err) {
+                res.statusCode = 500;
+                res.setHeader('Content-Type', 'application/json');
+                return res.end(JSON.stringify({ error: err.message }));
+            }
+        }
+    }
+
     // Route /admin or /admin/ to Admin Panel SPA (preserving static files like /admin/css/ or /admin/js/)
     if ((pathname === '/admin' || pathname === '/admin/') && !path.extname(pathname)) {
         let adminPath = path.join(ROOT_DIR, 'admin', 'index.html');

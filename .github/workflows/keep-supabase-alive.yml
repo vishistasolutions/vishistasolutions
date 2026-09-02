@@ -1,0 +1,19 @@
+name: Keep Supabase Database Awake
+
+on:
+  schedule:
+    # Runs every 3 days at 06:00 UTC to guarantee Supabase Free Tier never pauses
+    - cron: '0 6 */3 * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  ping-supabase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST API
+        run: |
+          curl -s -X GET "https://oseccrcffoyttjgpazrt.supabase.co/rest/v1/categories?select=id&limit=1" \
+            -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zZWNjcmNmZm95dHRqZ3BhenJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3NTM4OTEsImV4cCI6MjEwMzMyOTg5MX0.ESJ0iK2zcCPZZCZtfeYW7uObbEP7JxXUYJiSi9a4pzA" \
+            -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zZWNjcmNmZm95dHRqZ3BhenJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc3NTM4OTEsImV4cCI6MjEwMzMyOTg5MX0.ESJ0iK2zcCPZZCZtfeYW7uObbEP7JxXUYJiSi9a4pzA" \
+            -o /dev/null -w "HTTP Response Code: %{http_code}\n"
+          echo "Supabase successfully pinged. Database sleep mode prevented."

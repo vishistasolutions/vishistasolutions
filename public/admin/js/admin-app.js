@@ -49,35 +49,202 @@ function showAdminDashboard() {
 
 function bindAuthForm() {
     const loginForm = document.getElementById('adminLoginForm');
+    const forgotView = document.getElementById('forgotPasswordView');
+    const resetView = document.getElementById('resetPasswordView');
+    const errAlert = document.getElementById('loginErrorAlert');
+
+    // Check if opened via reset link ?reset_token=...
+    const urlParams = new URLSearchParams(window.location.search);
+    const linkResetToken = urlParams.get('reset_token');
+    if (linkResetToken) {
+        if (loginForm) loginForm.classList.add('d-none');
+        if (forgotView) forgotView.classList.add('d-none');
+        if (resetView) {
+            resetView.classList.remove('d-none');
+            const tokenInput = document.getElementById('resetTokenHidden');
+            if (tokenInput) tokenInput.value = linkResetToken;
+            const otpContainer = document.getElementById('otpGroupContainer');
+            if (otpContainer) otpContainer.classList.add('d-none'); // Token from email link auto-verifies
+        }
+    }
+
+    // Toggle views
+    const showForgotBtn = document.getElementById('showForgotPassBtn');
+    if (showForgotBtn) {
+        showForgotBtn.addEventListener('click', function () {
+            if (loginForm) loginForm.classList.add('d-none');
+            if (resetView) resetView.classList.add('d-none');
+            if (forgotView) forgotView.classList.remove('d-none');
+            if (errAlert) errAlert.classList.add('d-none');
+        });
+    }
+
+    const backToLoginFromForgotBtn = document.getElementById('backToLoginFromForgotBtn');
+    if (backToLoginFromForgotBtn) {
+        backToLoginFromForgotBtn.addEventListener('click', function () {
+            if (forgotView) forgotView.classList.add('d-none');
+            if (resetView) resetView.classList.add('d-none');
+            if (loginForm) loginForm.classList.remove('d-none');
+        });
+    }
+
+    const backToLoginFromResetBtn = document.getElementById('backToLoginFromResetBtn');
+    if (backToLoginFromResetBtn) {
+        backToLoginFromResetBtn.addEventListener('click', function () {
+            if (resetView) resetView.classList.add('d-none');
+            if (forgotView) forgotView.classList.add('d-none');
+            if (loginForm) loginForm.classList.remove('d-none');
+        });
+    }
+
+    // Handle Forgot Password submission
+    const forgotForm = document.getElementById('forgotPasswordForm');
+    if (forgotForm) {
+        forgotForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const email = (document.getElementById('forgotEmail').value || '').trim();
+            const forgotAlert = document.getElementById('forgotAlert');
+            const sendBtn = document.getElementById('sendResetBtn');
+
+            forgotAlert.className = 'alert fs-7 d-none mb-3';
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Sending Reset Link...';
+
+            try {
+                const res = await fetch('/api/admin-forgot-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                const data = await res.json();
+
+                if (!res.ok || data.error) {
+                    throw new Error(data.error || 'Failed to send reset link');
+                }
+
+                forgotAlert.className = 'alert alert-success fs-7 mb-3';
+                forgotAlert.innerHTML = `<strong>Success!</strong> ${data.message || 'Password reset link sent to your email.'}`;
+                
+                // Store reset token
+                const tokenInput = document.getElementById('resetTokenHidden');
+                if (tokenInput && data.resetToken) tokenInput.value = data.resetToken;
+
+                setTimeout(() => {
+                    forgotView.classList.add('d-none');
+                    resetView.classList.remove('d-none');
+                    const resetAlert = document.getElementById('resetAlert');
+                    if (resetAlert) {
+                        resetAlert.className = 'alert alert-info fs-7 mb-3';
+                        resetAlert.innerHTML = `Reset link &amp; code sent to <strong>${email}</strong>. Enter the OTP code or click the email link directly.`;
+                    }
+                }, 2000);
+
+            } catch (err) {
+                forgotAlert.className = 'alert alert-danger fs-7 mb-3';
+                forgotAlert.textContent = err.message;
+            } finally {
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = 'Send Reset Link &rarr;';
+            }
+        });
+    }
+
+    // Handle Reset Password submission
+    const resetForm = document.getElementById('resetPasswordForm');
+    if (resetForm) {
+        resetForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const token = document.getElementById('resetTokenHidden').value;
+            const otp = document.getElementById('resetOtpCode').value;
+            const newPassword = document.getElementById('newPasswordInput').value;
+            const confirmPassword = document.getElementById('confirmPasswordInput').value;
+            const resetAlert = document.getElementById('resetAlert');
+            const submitBtn = document.getElementById('submitResetBtn');
+
+            resetAlert.className = 'alert fs-7 d-none mb-3';
+
+            if (newPassword !== confirmPassword) {
+                resetAlert.className = 'alert alert-danger fs-7 mb-3';
+                resetAlert.textContent = 'Passwords do not match. Please re-enter.';
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Saving New Password...';
+
+            try {
+                const res = await fetch('/api/admin-reset-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ resetToken: token, otp, newPassword })
+                });
+                const data = await res.json();
+
+                if (!res.ok || data.error) {
+                    throw new Error(data.error || 'Failed to reset password');
+                }
+
+                resetAlert.className = 'alert alert-success fs-7 mb-3';
+                resetAlert.innerHTML = `<strong>Success!</strong> ${data.message}`;
+
+                setTimeout(() => {
+                    resetView.classList.add('d-none');
+                    loginForm.classList.remove('d-none');
+                    const emailInput = document.getElementById('loginEmail');
+                    const passInput = document.getElementById('loginPassword');
+                    if (emailInput && data.email) emailInput.value = data.email;
+                    if (passInput) passInput.value = newPassword;
+                    errAlert.className = 'alert alert-success fs-7 mb-3';
+                    errAlert.textContent = 'Password updated in database! Click Sign In to continue.';
+                    errAlert.classList.remove('d-none');
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }, 1800);
+
+            } catch (err) {
+                resetAlert.className = 'alert alert-danger fs-7 mb-3';
+                resetAlert.textContent = err.message;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Save New Password &rarr;';
+            }
+        });
+    }
+
+    // Handle Login submission with strict DB password validation
     if (loginForm) {
         loginForm.addEventListener('submit', async function (e) {
             e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
+            const email = (document.getElementById('loginEmail').value || '').trim();
             const password = document.getElementById('loginPassword').value;
-            const errAlert = document.getElementById('loginErrorAlert');
+            const signInBtn = document.getElementById('adminSignInBtn');
 
             errAlert.classList.add('d-none');
+            signInBtn.disabled = true;
+            signInBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Authenticating...';
 
-            // Attempt Supabase Auth
-            if (window.supabaseClient) {
-                try {
-                    const { data, error } = await window.supabaseClient.auth.signInWithPassword({ email, password });
-                    if (!error && data.session) {
-                        currentSession = data.session;
-                        localStorage.setItem('vishista_admin_logged_in', 'true');
-                        showAdminDashboard();
-                        return;
-                    }
-                } catch (e) {}
-            }
+            try {
+                // Strict Custom DB Verification (checks against updated database password)
+                const res = await fetch('/api/admin-login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
 
-            // Default Admin Credentials fallback
-            if (email === 'admin@vishista.com' || email === 'kvramana.reddy@vishistaofficesolutions.com') {
-                localStorage.setItem('vishista_admin_logged_in', 'true');
-                showAdminDashboard();
-            } else {
-                errAlert.textContent = 'Invalid email or password. Please try again.';
+                if (res.ok && data.success) {
+                    localStorage.setItem('vishista_admin_logged_in', 'true');
+                    showAdminDashboard();
+                    return;
+                } else {
+                    throw new Error(data.error || 'Invalid password.');
+                }
+            } catch (err) {
+                errAlert.className = 'alert alert-danger fs-7 mb-3';
+                errAlert.textContent = err.message || 'Invalid password.';
                 errAlert.classList.remove('d-none');
+            } finally {
+                signInBtn.disabled = false;
+                signInBtn.innerHTML = 'Sign In to Dashboard &rarr;';
             }
         });
     }
@@ -85,9 +252,6 @@ function bindAuthForm() {
     const logoutBtn = document.getElementById('adminLogoutBtn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', async function () {
-            if (window.supabaseClient) {
-                await window.supabaseClient.auth.signOut().catch(() => {});
-            }
             localStorage.removeItem('vishista_admin_logged_in');
             showAuthScreen();
         });

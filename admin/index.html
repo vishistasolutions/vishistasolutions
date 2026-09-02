@@ -29,16 +29,74 @@
             <form id="adminLoginForm">
                 <div class="text-start mb-3">
                     <label class="form-label fs-7 fw-semibold text-dark">Email Address</label>
-                    <input type="email" id="loginEmail" class="form-control py-2" placeholder="admin@vishista.com" required value="admin@vishista.com">
+                    <input type="email" id="loginEmail" class="form-control py-2" placeholder="admin@vishista.com" required value="pm.rakeshk@gmail.com">
                 </div>
                 <div class="text-start mb-4">
-                    <label class="form-label fs-7 fw-semibold text-dark">Password</label>
-                    <input type="password" id="loginPassword" class="form-control py-2" placeholder="••••••••" required value="admin123">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <label class="form-label fs-7 fw-semibold text-dark mb-0">Password</label>
+                        <a href="javascript:void(0)" id="showForgotPassBtn" class="fs-7 text-danger text-decoration-none fw-semibold">Forgot Password?</a>
+                    </div>
+                    <input type="password" id="loginPassword" class="form-control py-2" placeholder="••••••••" required value="">
                 </div>
-                <button type="submit" class="btn btn-danger w-100 py-2 fw-bold text-uppercase shadow-sm" style="background-color: #d32f2f; border: none;">
+                <button type="submit" id="adminSignInBtn" class="btn btn-danger w-100 py-2 fw-bold text-uppercase shadow-sm" style="background-color: #d32f2f; border: none;">
                     Sign In to Dashboard &rarr;
                 </button>
             </form>
+
+            <!-- FORGOT PASSWORD FORM -->
+            <div id="forgotPasswordView" class="d-none text-start">
+                <div class="mb-3">
+                    <h5 class="fw-bold text-dark mb-1">Reset Password</h5>
+                    <p class="text-muted fs-7 mb-0">Enter your authorized management email to receive a password reset link.</p>
+                </div>
+                <div id="forgotAlert" class="alert fs-7 d-none mb-3" role="alert"></div>
+                <form id="forgotPasswordForm">
+                    <div class="mb-3">
+                        <label class="form-label fs-7 fw-semibold text-dark">Management Email Address</label>
+                        <input type="email" id="forgotEmail" class="form-control py-2" placeholder="pm.rakeshk@gmail.com" required value="pm.rakeshk@gmail.com">
+                        <div class="form-text fs-8 text-muted mt-1">
+                            Only authorized email (<strong class="text-dark">pm.rakeshk@gmail.com</strong>) is permitted.
+                        </div>
+                    </div>
+                    <button type="submit" id="sendResetBtn" class="btn btn-danger w-100 py-2 fw-bold text-uppercase shadow-sm mb-2" style="background-color: #d32f2f; border: none;">
+                        Send Reset Link &rarr;
+                    </button>
+                    <button type="button" id="backToLoginFromForgotBtn" class="btn btn-outline-secondary w-100 py-2 fw-semibold fs-7">
+                        &larr; Back to Sign In
+                    </button>
+                </form>
+            </div>
+
+            <!-- SET NEW PASSWORD FORM (Triggered by reset_token or direct flow) -->
+            <div id="resetPasswordView" class="d-none text-start">
+                <div class="mb-3">
+                    <h5 class="fw-bold text-dark mb-1">Set New Password</h5>
+                    <p class="text-muted fs-7 mb-0">Create a new password. The previous password will be permanently disabled in the database.</p>
+                </div>
+                <div id="resetAlert" class="alert fs-7 d-none mb-3" role="alert"></div>
+                <form id="resetPasswordForm">
+                    <input type="hidden" id="resetTokenHidden">
+                    <div class="mb-3" id="otpGroupContainer">
+                        <label class="form-label fs-7 fw-semibold text-dark">Verification Code (OTP)</label>
+                        <input type="text" id="resetOtpCode" class="form-control py-2 text-center fw-bold fs-5 letter-spacing-2" placeholder="••••••" maxlength="6">
+                        <div class="form-text fs-8 text-muted">Auto-filled if you clicked the email link directly.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fs-7 fw-semibold text-dark">New Password</label>
+                        <input type="password" id="newPasswordInput" class="form-control py-2" placeholder="At least 6 characters" required minlength="6">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fs-7 fw-semibold text-dark">Confirm New Password</label>
+                        <input type="password" id="confirmPasswordInput" class="form-control py-2" placeholder="Re-enter new password" required minlength="6">
+                    </div>
+                    <button type="submit" id="submitResetBtn" class="btn btn-danger w-100 py-2 fw-bold text-uppercase shadow-sm mb-2" style="background-color: #d32f2f; border: none;">
+                        Save New Password &rarr;
+                    </button>
+                    <button type="button" id="backToLoginFromResetBtn" class="btn btn-outline-secondary w-100 py-2 fw-semibold fs-7">
+                        &larr; Back to Sign In
+                    </button>
+                </form>
+            </div>
             <div class="mt-4 pt-3 border-top text-muted fs-7">
                 Protected by Supabase Auth &amp; Row Level Security
             </div>
