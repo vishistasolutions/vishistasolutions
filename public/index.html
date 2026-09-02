@@ -1083,6 +1083,22 @@
         <div class="hero-slide" style="background-image: url('https://res.cloudinary.com/iw4ntmv5/image/upload/v1788282648/wp4dicujraxmjaqsyvui.jpg'); background-size: cover; background-position: center center; background-repeat: no-repeat;"></div>
         <div class="hero-bg-overlay"></div>
     </div>
+    <script>
+        (function() {
+            var wrapper = document.querySelector('.hero-bg-animated-wrapper');
+            if (wrapper && !window._heroSliderInterval) {
+                var slides = wrapper.querySelectorAll('.hero-slide');
+                if (slides.length > 1) {
+                    var curIdx = 0;
+                    window._heroSliderInterval = setInterval(function() {
+                        slides[curIdx].classList.remove('active');
+                        curIdx = (curIdx + 1) % slides.length;
+                        slides[curIdx].classList.add('active');
+                    }, 3000);
+                }
+            }
+        })();
+    </script>
 
     <div class="tf-container position-relative py-5" style="z-index: 2;">
         <div class="row align-items-center g-4">

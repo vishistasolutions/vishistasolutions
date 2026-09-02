@@ -82,30 +82,37 @@ async function syncHeroSection() {
 
         const currentSerialized = wrapper.getAttribute('data-current-slides') || '';
         const newSerialized = slideImages.join('|||');
-        if (currentSerialized === newSerialized && wrapper.querySelectorAll('.hero-slide').length === slideImages.length) {
-            // Slides have not changed, keep current carousel uninterrupted
-            return;
-        }
-        wrapper.setAttribute('data-current-slides', newSerialized);
+        const existingSlides = wrapper.querySelectorAll('.hero-slide');
 
-        let html = '';
-        slideImages.forEach((imgUrl, i) => {
-            html += `<div class="hero-slide ${i === 0 ? 'active' : ''}" style="background-image: url('${imgUrl}'); background-size: cover; background-position: center center; background-repeat: no-repeat;"></div>`;
-        });
-        html += `<div class="hero-bg-overlay"></div>`;
-        wrapper.innerHTML = html;
+        if (currentSerialized !== newSerialized || existingSlides.length !== slideImages.length) {
+            wrapper.setAttribute('data-current-slides', newSerialized);
+            let html = '';
+            slideImages.forEach((imgUrl, i) => {
+                html += `<div class="hero-slide ${i === 0 ? 'active' : ''}" style="background-image: url('${imgUrl}'); background-size: cover; background-position: center center; background-repeat: no-repeat;"></div>`;
+            });
+            html += `<div class="hero-bg-overlay"></div>`;
+            wrapper.innerHTML = html;
 
-        if (window._heroSliderInterval) {
-            clearInterval(window._heroSliderInterval);
+            if (window._heroSliderInterval) {
+                clearInterval(window._heroSliderInterval);
+                window._heroSliderInterval = null;
+            }
         }
-        const newSlides = wrapper.querySelectorAll('.hero-slide');
-        if (newSlides.length > 1) {
-            let curIdx = 0;
-            window._heroSliderInterval = setInterval(() => {
-                newSlides[curIdx].classList.remove('active');
-                curIdx = (curIdx + 1) % newSlides.length;
-                newSlides[curIdx].classList.add('active');
-            }, 2000);
+
+        // Always ensure slider is actively rotating
+        if (!window._heroSliderInterval) {
+            const activeSlides = wrapper.querySelectorAll('.hero-slide');
+            if (activeSlides.length > 1) {
+                let curIdx = 0;
+                activeSlides.forEach((s, idx) => {
+                    if (s.classList.contains('active')) curIdx = idx;
+                });
+                window._heroSliderInterval = setInterval(() => {
+                    activeSlides[curIdx].classList.remove('active');
+                    curIdx = (curIdx + 1) % activeSlides.length;
+                    activeSlides[curIdx].classList.add('active');
+                }, 3000);
+            }
         }
     }
 }
