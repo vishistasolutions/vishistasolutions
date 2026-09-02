@@ -1,5 +1,1074 @@
 
-<?php include('header.php'); ?>
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <!--[if IE ]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/><![endif]-->
+
+    <meta name="author" content="Vishista Office Solutions Pvt Ltd">
+    <title>Vishista Office Solutions - Premium Office Furniture & Turnkey Workspaces</title>
+    <meta name="description" content="Vishista Office Solutions Pvt Ltd offers premium office furniture, ArchLabs seating collections, modular workstation systems, executive seating, and turnkey corporate interior solutions across Telangana and Andhra Pradesh.">
+    <meta name="keywords" content="office furniture, ArchLabs seating, mesh chairs, leather chairs, workstations, executive tables, Hyderabad, Secunderabad">
+    
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="css/swiper-bundle.min.css">
+    <link rel="stylesheet" type="text/css" href="css/sib-styles.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+    <!-- Icon -->
+    <link rel="stylesheet" type="text/css" href="icons/icomoon/style.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/logo/logo-mark.png?v=2">
+    <link rel="apple-touch-icon-precomposed" href="images/logo/logo-mark.png?v=2">
+
+    <!-- Supabase SDK & CMS Public Sync Engine -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="js/supabase-config.js" defer></script>
+    <script src="js/public-sync.js" defer></script>
+
+    <style>
+        /* Site Logo Header Styling */
+        .site-brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none !important;
+            max-width: 100%;
+        }
+        .site-brand-logo img {
+            height: 52px;
+            width: auto;
+            object-fit: contain;
+            flex-shrink: 0;
+            transition: transform 0.2s ease;
+        }
+        .site-brand-logo:hover img {
+            transform: scale(1.04);
+        }
+        .brand-text-wrapper {
+            display: flex;
+            flex-direction: column;
+            white-space: nowrap;
+        }
+        .brand-main-title {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-size: 23px;
+            font-weight: 900;
+            color: #d32f2f;
+            line-height: 1;
+            letter-spacing: 0.8px;
+        }
+        .brand-sub-title {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-size: 10.5px;
+            font-weight: 800;
+            color: #333333;
+            letter-spacing: 2.2px;
+            margin-top: 3px;
+        }
+        @media (max-width: 576px) {
+            .site-brand-logo {
+                gap: 8px;
+            }
+            .site-brand-logo img {
+                height: 38px !important;
+            }
+            .brand-main-title {
+                font-size: 17px !important;
+            }
+            .brand-sub-title {
+                font-size: 8px !important;
+                letter-spacing: 1.2px !important;
+            }
+            .nav-enquire-btn {
+                padding: 6px 12px !important;
+                font-size: 11px !important;
+            }
+        }
+        @media (max-width: 380px) {
+            .site-brand-logo {
+                gap: 6px;
+            }
+            .site-brand-logo img {
+                height: 32px !important;
+            }
+            .brand-main-title {
+                font-size: 14px !important;
+            }
+            .brand-sub-title {
+                font-size: 7px !important;
+                letter-spacing: 0.8px !important;
+            }
+            .nav-enquire-btn {
+                padding: 5px 8px !important;
+                font-size: 10px !important;
+            }
+        }
+
+        /* Continuous Scrolling Marquee Animation for Section Cards */
+        .scrolling-marquee-container {
+            overflow: hidden !important;
+            width: 100% !important;
+            position: relative !important;
+            padding: 10px 0 !important;
+        }
+        .scrolling-marquee-track {
+            display: flex !important;
+            gap: 24px !important;
+            width: max-content !important;
+            animation: marqueeContinuous 30s linear infinite !important;
+        }
+        .scrolling-marquee-track:hover {
+            animation-play-state: paused !important;
+        }
+        @keyframes marqueeContinuous {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        /* High-Visibility Product Card & Subcategory Text Styling (Matching image copy 70.png) */
+        .card-body h4, .card-body h5 {
+            font-size: 1.3rem !important;
+            font-weight: 800 !important;
+            color: #111111 !important;
+        }
+        .card-body p, .card-body p.text-secondary {
+            font-size: 1.05rem !important;
+            font-weight: 600 !important;
+            color: #333333 !important;
+            line-height: 1.6 !important;
+        }
+        .product-cat-card h4 {
+            font-size: 1.4rem !important;
+            font-weight: 800 !important;
+            color: #111111 !important;
+        }
+        .product-cat-card p {
+            font-size: 1.1rem !important;
+            font-weight: 600 !important;
+            color: #333333 !important;
+        }
+        .badge {
+            font-size: 0.85rem !important;
+            font-weight: 700 !important;
+        }
+
+        .nav-enquire-btn {
+            background-color: #d32f2f;
+            color: #ffffff !important;
+            padding: 10px 22px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            text-decoration: none !important;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-enquire-btn:hover {
+            background-color: #b71c1c;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+        }
+
+        /* Desktop Mega Menu & Standard Dropdown Positioning Fix */
+        header, .header, .header-sticky {
+            z-index: 1030 !important;
+            position: sticky !important;
+            top: 0;
+        }
+        .header-inner {
+            position: relative !important;
+            z-index: 1030 !important;
+        }
+        .main-menu .navigation > li.has-child {
+            position: relative !important;
+        }
+        .main-menu .navigation > li.has-child.has-mega-menu {
+            position: static !important;
+        }
+        .main-menu .navigation > li:not(.has-mega-menu) > .submenu {
+            position: absolute !important;
+            top: 100% !important;
+            left: 0 !important;
+            min-width: 260px !important;
+            background: #ffffff !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+            border-radius: 8px !important;
+            padding: 16px !important;
+            z-index: 100001 !important;
+            border: 1px solid rgba(0,0,0,0.08) !important;
+        }
+        .mega-menu {
+            position: absolute !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: 1280px !important;
+            max-width: 95vw !important;
+            top: 100% !important;
+            max-height: 75vh !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            overscroll-behavior: contain !important;
+            padding: 0 !important;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.18) !important;
+            border-radius: 12px !important;
+            background: #ffffff !important;
+            z-index: 100001 !important;
+            border: 1px solid rgba(0,0,0,0.08) !important;
+            scrollbar-width: thin !important;
+            scrollbar-color: #d32f2f #f1f5f9 !important;
+        }
+        .mega-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+        .mega-menu::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+        .mega-menu::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 8px;
+        }
+        .mega-menu::-webkit-scrollbar-thumb:hover {
+            background: #d32f2f;
+        }
+        .mega-menu-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)) !important;
+            gap: 22px 24px !important;
+            padding: 26px 30px !important;
+            background: #ffffff !important;
+            border-radius: 12px !important;
+            align-items: start !important;
+        }
+        .mega-category-title {
+            font-size: 13.5px !important;
+            font-weight: 700 !important;
+            color: #111111 !important;
+            margin-bottom: 12px !important;
+            padding-bottom: 6px !important;
+            border-bottom: 2px solid #d32f2f !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+        }
+        .mega-subcategory-list {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .mega-subcategory-list li {
+            margin-bottom: 8px !important;
+        }
+        .mega-subcategory-list a {
+            color: #444444 !important;
+            font-size: 13px !important;
+            text-decoration: none !important;
+            transition: color 0.2s ease, font-weight 0.2s ease !important;
+            display: inline-block !important;
+        }
+        .mega-subcategory-list a:hover {
+            color: #d32f2f !important;
+            font-weight: 600 !important;
+            transform: translateX(3px);
+        }
+
+        /* Mobile Offcanvas Drawer Sizing & Alignment */
+        .offcanvas.canvas-mb {
+            width: 310px !important;
+            max-width: 85vw !important;
+            background-color: #ffffff !important;
+        }
+        .offcanvas-header {
+            padding: 16px !important;
+            border-bottom: 1px solid #e9ecef !important;
+            background-color: #ffffff !important;
+        }
+        
+        /* Mobile Menu Main Link */
+        .mobile-nav-link {
+            font-size: 16px !important;
+            font-weight: 700 !important;
+            color: #111111 !important;
+            padding: 10px 0px !important;
+            border: none !important;
+            border-left: none !important;
+            border-bottom: none !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            width: 100% !important;
+            text-decoration: none !important;
+            transition: all 0.2s ease !important;
+        }
+        .mobile-nav-link:hover,
+        .mobile-nav-link[aria-expanded="true"] {
+            color: #d32f2f !important;
+        }
+        .mobile-nav-link .chevron-icon {
+            font-size: 12px !important;
+            transition: transform 0.3s ease !important;
+            color: #555555 !important;
+        }
+        .mobile-nav-link[aria-expanded="true"] .chevron-icon {
+            transform: rotate(180deg) !important;
+            color: #d32f2f !important;
+        }
+
+        /* Prominent Dropdown Chevron Button Styling */
+        .chevron-box {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 28px !important;
+            height: 28px !important;
+            min-width: 28px !important;
+            border-radius: 50% !important;
+            background-color: #f0f0f0 !important;
+            color: #333333 !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+        }
+        [aria-expanded="true"] .chevron-box {
+            transform: rotate(180deg) !important;
+            background-color: #d32f2f !important;
+            color: #ffffff !important;
+        }
+        .navigation li.has-child::after {
+            display: none !important;
+        }
+        .desktop-arrow {
+            font-size: 10px !important;
+            margin-left: 3px !important;
+            transition: transform 0.2s ease !important;
+            display: inline-block !important;
+        }
+        .menu-item:hover .desktop-arrow {
+            transform: rotate(180deg) !important;
+            color: #d32f2f !important;
+        }
+
+        /* Universal Rock-Solid Sticky Filter Anchor Bar & Jump Bar for Desktop & Mobile */
+        .filter-anchor-bar,
+        .sticky-jump-bar {
+            position: -webkit-sticky !important;
+            position: sticky !important;
+            top: 72px !important;
+            z-index: 900 !important;
+            background-color: #ffffff !important;
+            border-bottom: 2px solid #d32f2f !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+        }
+        @media (max-width: 1199px) {
+            .filter-anchor-bar,
+            .sticky-jump-bar {
+                top: 70px !important;
+            }
+        }
+        .filter-anchor-bar .tf-container,
+        .sticky-jump-bar .tf-container {
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .filter-anchor-bar .tf-container::-webkit-scrollbar,
+        .sticky-jump-bar .tf-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Mobile Level 1 Subcategory Link (Accordion Header inside Products) */
+        .mobile-sub-accordion-link {
+            font-size: 15px !important;
+            font-weight: 600 !important;
+            color: #222222 !important;
+            padding: 11px 10px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            text-decoration: none !important;
+            border-radius: 6px !important;
+            transition: all 0.2s ease !important;
+        }
+        .mobile-sub-accordion-link:hover,
+        .mobile-sub-accordion-link[aria-expanded="true"] {
+            color: #d32f2f !important;
+            background-color: rgba(211, 47, 47, 0.05) !important;
+        }
+        .mobile-sub-accordion-link .chevron-icon {
+            font-size: 11px !important;
+            transition: transform 0.3s ease !important;
+            color: #777777 !important;
+        }
+        .mobile-sub-accordion-link[aria-expanded="true"] .chevron-icon {
+            transform: rotate(180deg) !important;
+            color: #d32f2f !important;
+        }
+
+        /* Mobile Level 2 Item Link */
+        .mobile-sub-link {
+            font-size: 14px !important;
+            color: #444444 !important;
+            padding: 8px 12px !important;
+            display: block !important;
+            text-decoration: none !important;
+            transition: all 0.2s ease !important;
+            border-radius: 4px !important;
+        }
+        .mobile-sub-link:hover {
+            color: #d32f2f !important;
+            font-weight: 600 !important;
+            background-color: #f8f9fa !important;
+            padding-left: 16px !important;
+        }
+        
+        /* Indentation Lines matching image 8 */
+        .mobile-accordion-group {
+            padding-left: 8px !important;
+            margin-top: 4px !important;
+            margin-bottom: 6px !important;
+        }
+        .mobile-nested-group {
+            padding-left: 8px !important;
+            border-left: none !important;
+            margin-left: 0 !important;
+            margin-top: 4px !important;
+            margin-bottom: 8px !important;
+        }
+        .mobile-nested-group.archlabs-border {
+            border-left: none !important;
+        }
+
+        /* Universal Attractive Product & Catalogue Card Image Fitting (Fixes Mobile Cropping) */
+        .card-img-top,
+        .product-card-hover img,
+        .card img.card-img-top {
+            height: 270px !important;
+            max-height: 270px !important;
+            width: 100% !important;
+            object-fit: contain !important;
+            object-position: center !important;
+            background-color: #ffffff !important;
+            padding: 10px !important;
+            border-bottom: 1px solid #f0f0f0 !important;
+            transition: transform 0.3s ease !important;
+        }
+        .card {
+            background-color: #ffffff !important;
+            border-radius: 12px !important;
+            overflow: hidden !important;
+            transition: box-shadow 0.3s ease, transform 0.3s ease !important;
+        }
+        .product-card-hover:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+            transform: translateY(-4px) !important;
+        }
+        .product-card-hover:hover .card-img-top,
+        .product-card-hover:hover img {
+            transform: scale(1.03) !important;
+        }
+        /* Sticky Header and Sticky Category Jump Bar */
+        :root {
+            --site-header-height: 60px;
+        }
+        @media (min-width: 992px) {
+            :root {
+                --site-header-height: 72px;
+            }
+        }
+        header.header {
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 1050 !important;
+            background-color: #ffffff !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08) !important;
+        }
+        .category-jump-bar {
+            position: sticky !important;
+            top: var(--site-header-height, 60px) !important;
+            z-index: 990 !important;
+            background-color: #ffffff !important;
+            border-bottom: 3px solid #d32f2f !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
+            -webkit-overflow-scrolling: touch;
+            width: 100% !important;
+        }
+        .category-jump-bar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Active Nav Link Indicator Styling */
+        .navigation .menu-item .item-link {
+            transition: all 0.2s ease !important;
+            position: relative;
+            padding: 8px 4px !important;
+            color: #222222 !important;
+        }
+        .navigation .menu-item .item-link:hover,
+        .navigation .menu-item.active > .item-link,
+        .navigation .menu-item .item-link.active {
+            color: #d32f2f !important;
+            font-weight: 800 !important;
+        }
+        .navigation .menu-item.active > .item-link::after,
+        .navigation .menu-item .item-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0px;
+            left: 4px;
+            right: 4px;
+            height: 3px;
+            background-color: #d32f2f;
+            border-radius: 4px;
+        }
+
+        /* Mobile Drawer Layout & Perfect Alignment */
+        #mobileMenu.offcanvas {
+            width: 310px !important;
+            max-width: 85vw !important;
+            background-color: #ffffff !important;
+        }
+        #mobileMenu .offcanvas-header {
+            padding: 16px !important;
+            border-bottom: 1px solid #f0f0f0 !important;
+        }
+        #mobileMenu .offcanvas-body {
+            padding: 16px !important;
+        }
+        #mobileMenu ul.nav {
+            width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        #mobileMenu .nav-item {
+            margin-bottom: 4px !important;
+            width: 100% !important;
+            display: block !important;
+        }
+        #mobileMenu .mobile-nav-link {
+            font-size: 16px !important;
+            font-weight: 700 !important;
+            color: #111111 !important;
+            padding: 10px 0px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            text-decoration: none !important;
+            transition: color 0.2s ease !important;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            width: 100% !important;
+            line-height: 1.4 !important;
+            background: transparent !important;
+        }
+        #mobileMenu .mobile-nav-link:hover {
+            color: #d32f2f !important;
+            background: transparent !important;
+        }
+        #mobileMenu .mobile-nav-link.active,
+        #mobileMenu .mobile-nav-link.active span {
+            color: #d32f2f !important;
+            font-weight: 800 !important;
+            background: transparent !important;
+            padding-left: 0 !important;
+        }
+        #mobileMenu .mobile-nav-link::before,
+        #mobileMenu .mobile-nav-link::after,
+        #mobileMenu .mobile-nav-link *::before,
+        #mobileMenu .mobile-nav-link *::after {
+            display: none !important;
+            content: none !important;
+            border: none !important;
+        }
+        #mobileMenu .chevron-box {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 28px !important;
+            height: 28px !important;
+            min-width: 28px !important;
+            border-radius: 50% !important;
+            background-color: #f0f0f0 !important;
+            color: #444444 !important;
+            transition: all 0.25s ease !important;
+            margin-left: auto !important;
+        }
+        #mobileMenu [aria-expanded="true"] .chevron-box {
+            transform: rotate(180deg) !important;
+            background-color: #d32f2f !important;
+            color: #ffffff !important;
+        }
+
+        /* Mega Menu Dropdown Styling for Desktop */
+        header.header {
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 1050 !important;
+            background-color: #ffffff !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08) !important;
+        }
+        header.header .tf-container {
+            position: relative !important;
+        }
+        .header-inner {
+            position: static !important;
+        }
+        .main-menu,
+        .main-menu .navigation,
+        .main-menu .navigation > li.has-child {
+            position: static !important;
+        }
+        .main-menu .navigation .submenu.mega-menu {
+            position: absolute !important;
+            left: 0 !important;
+            right: 0 !important;
+            margin: 6px auto 0 auto !important;
+            width: calc(100% - 30px) !important;
+            max-width: 1240px !important;
+            top: 100% !important;
+            max-height: 75vh !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            overscroll-behavior: contain !important;
+            transform: none !important;
+            padding: 0 !important;
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18) !important;
+            border-radius: 12px !important;
+            background: #ffffff !important;
+            z-index: 99999 !important;
+            border: 1px solid rgba(0,0,0,0.1) !important;
+            scrollbar-width: thin !important;
+            scrollbar-color: #d32f2f #f1f5f9 !important;
+        }
+        .main-menu .navigation .submenu.mega-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+        .main-menu .navigation .submenu.mega-menu::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+        .main-menu .navigation .submenu.mega-menu::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 8px;
+        }
+        .main-menu .navigation .submenu.mega-menu::-webkit-scrollbar-thumb:hover {
+            background: #d32f2f;
+        }
+        .mega-menu-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)) !important;
+            gap: 22px 20px !important;
+            padding: 24px 26px !important;
+            background: #ffffff !important;
+            border-radius: 12px !important;
+            align-items: start !important;
+        }
+        .mega-category-title {
+            font-size: 14px !important;
+            font-weight: 800 !important;
+            color: #111111 !important;
+            margin-bottom: 10px !important;
+            padding-bottom: 5px !important;
+            border-bottom: 2px solid #d32f2f !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+            text-decoration: none !important;
+            display: block !important;
+        }
+        .mega-category-title:hover {
+            color: #d32f2f !important;
+        }
+        .mega-subcategory-list {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .mega-subcategory-list li {
+            margin-bottom: 7px !important;
+        }
+        .mega-subcategory-list a {
+            color: #444444 !important;
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            text-decoration: none !important;
+            transition: color 0.2s ease, font-weight 0.2s ease, transform 0.2s ease !important;
+            display: inline-block !important;
+        }
+        .mega-subcategory-list a:hover {
+            color: #d32f2f !important;
+            font-weight: 700 !important;
+            transform: translateX(3px);
+        }
+        .desktop-arrow {
+            font-size: 10px !important;
+            margin-left: 3px !important;
+            transition: transform 0.2s ease !important;
+            display: inline-block !important;
+        }
+        .menu-item:hover .desktop-arrow {
+            transform: rotate(180deg) !important;
+            color: #d32f2f !important;
+        }
+
+        /* Standard Crisp 3-Bar Mobile Hamburger Icon */
+        .mobile-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            background: transparent;
+            border: none;
+        }
+        @media (max-width: 1199.98px) {
+            .mobile-button {
+                display: inline-flex !important;
+            }
+        }
+        @media (min-width: 1200px) {
+            .mobile-button,
+            [data-bs-target="#mobileMenu"],
+            a[href="#mobileMenu"] {
+                display: none !important;
+            }
+        }
+        .mobile-button:hover,
+        .mobile-button:active {
+            background-color: rgba(211, 47, 47, 0.08) !important;
+        }
+        .mobile-button .burger {
+            width: 24px !important;
+            height: 18px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            position: relative !important;
+            cursor: pointer !important;
+        }
+        .mobile-button .burger span {
+            display: block !important;
+            position: static !important;
+            height: 2.5px !important;
+            width: 24px !important;
+            transition: 0.25s ease !important;
+            background-color: #111111 !important;
+            border-radius: 3px !important;
+            transform: none !important;
+            margin: 0 !important;
+            top: auto !important;
+        }
+        .mobile-button:hover .burger span,
+        .mobile-button:active .burger span {
+            background-color: #d32f2f !important;
+            transform: none !important;
+        }
+
+        /* Viewport Smooth Scrolling, Anti-Horizontal Scroll & Clean Single Scrollbar */
+        :root, html {
+            scroll-behavior: smooth !important;
+            overflow-x: clip !important;
+            max-width: 100% !important;
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            -webkit-text-size-adjust: 100%;
+        }
+        body {
+            overflow-x: clip !important;
+            max-width: 100% !important;
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            position: relative !important;
+            -webkit-overflow-scrolling: touch !important;
+        }
+        #wrapper {
+            position: relative !important;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        /* Responsive Mobile Typography Only (Does not alter desktop container widths) */
+        @media (max-width: 768px) {
+            .display-1 { font-size: 2.1rem !important; }
+            .display-2 { font-size: 1.9rem !important; }
+            .display-3 { font-size: 1.7rem !important; }
+            .display-4 { font-size: 1.5rem !important; }
+            h1 { font-size: 1.75rem !important; }
+            h2 { font-size: 1.4rem !important; }
+            h3 { font-size: 1.2rem !important; }
+        }
+
+        @media (max-width: 480px) {
+            .display-1 { font-size: 1.75rem !important; line-height: 1.2 !important; }
+            .display-2 { font-size: 1.55rem !important; line-height: 1.2 !important; }
+            .display-3 { font-size: 1.45rem !important; line-height: 1.25 !important; }
+            .display-4 { font-size: 1.3rem !important; line-height: 1.25 !important; }
+            h1 { font-size: 1.45rem !important; line-height: 1.25 !important; }
+            h2 { font-size: 1.25rem !important; line-height: 1.3 !important; }
+            h3 { font-size: 1.1rem !important; line-height: 1.3 !important; }
+            .site-brand-logo img {
+                height: 38px !important;
+            }
+            .brand-main-title {
+                font-size: 1.15rem !important;
+            }
+            .brand-sub-title {
+                font-size: 0.58rem !important;
+            }
+        }
+    </style>
+    <script>
+        function syncHeaderHeight() {
+            var h = document.querySelector('header.header');
+            if (h) {
+                var height = h.offsetHeight;
+                document.documentElement.style.setProperty('--site-header-height', height + 'px');
+            }
+        }
+        window.addEventListener('load', syncHeaderHeight);
+        window.addEventListener('resize', syncHeaderHeight);
+        window.addEventListener('scroll', syncHeaderHeight, { passive: true });
+        document.addEventListener('DOMContentLoaded', syncHeaderHeight);
+
+        // Active Navigation Link Auto-Detection
+        document.addEventListener('DOMContentLoaded', function() {
+            function highlightActiveNavLink() {
+                var path = window.location.pathname.toLowerCase();
+                var page = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
+                
+                var navLinks = document.querySelectorAll('.navigation .item-link, .mobile-nav-link');
+                
+                var isHomePage = (page === '' || page === 'index.html' || page === 'index.php');
+                var isAboutPage = (page.indexOf('about') !== -1);
+                var isProductPage = (page.indexOf('product') !== -1 || page.indexOf('archlabs') !== -1);
+                var isContactPage = (page.indexOf('contact') !== -1);
+
+                navLinks.forEach(function(link) {
+                    var href = (link.getAttribute('href') || '').toLowerCase();
+                    var isCurrent = false;
+
+                    if (href === 'index.html' || href === 'index.php' || href === '/' || href === './') {
+                        if (isHomePage) isCurrent = true;
+                    } else if (href.indexOf('about') !== -1) {
+                        if (isAboutPage) isCurrent = true;
+                    } else if (href.indexOf('product') !== -1 || href.indexOf('archlabs') !== -1) {
+                        if (isProductPage) isCurrent = true;
+                    } else if (href.indexOf('contact') !== -1) {
+                        if (isContactPage) isCurrent = true;
+                    }
+                    
+                    if (isCurrent) {
+                        link.classList.add('active');
+                        if (link.classList.contains('mobile-nav-link')) {
+                            link.style.setProperty('color', '#d32f2f', 'important');
+                            link.style.setProperty('font-weight', '800', 'important');
+                            var innerSpan = link.querySelector('span');
+                            if (innerSpan) {
+                                innerSpan.style.setProperty('color', '#d32f2f', 'important');
+                                innerSpan.style.setProperty('font-weight', '800', 'important');
+                            }
+                        }
+                        if (link.parentElement && link.parentElement.classList.contains('menu-item')) {
+                            link.parentElement.classList.add('active');
+                        }
+                    } else {
+                        link.classList.remove('active');
+                        if (link.classList.contains('mobile-nav-link')) {
+                            link.style.removeProperty('color');
+                            link.style.removeProperty('font-weight');
+                            var innerSpan = link.querySelector('span');
+                            if (innerSpan) {
+                                innerSpan.style.removeProperty('color');
+                                innerSpan.style.removeProperty('font-weight');
+                            }
+                        }
+                        if (link.parentElement && link.parentElement.classList.contains('menu-item')) {
+                            link.parentElement.classList.remove('active');
+                        }
+                    }
+                });
+            }
+
+            highlightActiveNavLink();
+        });
+    </script>
+</head>
+
+<body>
+    <!-- wrapper -->
+    <div id="wrapper">
+
+        <!-- Scroll Top -->
+        <button id="goTop">
+            <span class="border-progress"></span>
+            <span class="icon icon-caret-up"></span>
+        </button>
+
+        <!-- Preloader Disabled for Instant Crisp Page Loading -->
+
+        <!-- .header -->
+        <header class="header header-sticky py-2">
+            <div class="tf-container w-1750">
+                <div class="header-inner d-flex align-items-center justify-content-between">
+                    
+                    <!-- Site Logo -->
+                    <a href="index.html" class="site-brand-logo">
+                        <img src="images/logo/logo-mark.png?v=2" alt="Vishista Logo">
+                        <div class="brand-text-wrapper">
+                            <span class="brand-main-title">VISHISTA</span>
+                            <span class="brand-sub-title">OFFICE SOLUTIONS</span>
+                        </div>
+                    </a>
+
+                    <!-- Navigation Bar -->
+                    <nav class="main-menu d-none d-xl-block ms-auto me-4 me-lg-5">
+                        <ul class="navigation box-nav-menu d-flex align-items-center gap-4 list-unstyled mb-0">
+                            <!-- 1. Home -->
+                            <li class="text-menu menu-item">
+                                <a href="index.html" class="item-link fw-bold" style="font-size: 15px !important; font-weight: 700 !important; color: #222222 !important;">Home</a>
+                            </li>
+
+                            <!-- 2. About Us -->
+                            <li class="text-menu menu-item">
+                                <a href="about.html" class="item-link fw-bold" style="font-size: 15px !important; font-weight: 700 !important; color: #222222 !important;">About Us</a>
+                            </li>
+
+                            <!-- 3. Products (Mega Menu Dropdown with Chevron Icon) -->
+                            <li class="has-child text-menu menu-item">
+                                <a href="product-categories.html" class="item-link fw-bold d-inline-flex align-items-center gap-1" style="font-size: 15px !important; font-weight: 700 !important; color: #222222 !important;">Products <span class="desktop-arrow">▼</span></a>
+                                <div class="submenu sub-menu mega-menu">
+                                    <div class="mega-menu-grid">
+                                        
+                                         <!-- 1. Workstations -->
+                                        <div>
+                                            <a href="products.html?category=workstations" class="mega-category-title d-block">Workstations</a>
+                                            <ul class="mega-subcategory-list">
+                                                <li><a href="products.html?category=workstations&subcat=Height+Adjustable+Series">&bull; Height Adjustable Series</a></li>
+                                                <li><a href="products.html?category=workstations&subcat=Desking+Series">&bull; Desking Series</a></li>
+                                                <li><a href="products.html?category=workstations&subcat=Panel+Series">&bull; Panel Series</a></li>
+                                            </ul>
+                                        </div>
+
+                                        <!-- 2. Tables -->
+                                        <div>
+                                            <a href="products.html?category=tables" class="mega-category-title d-block">Tables</a>
+                                            <ul class="mega-subcategory-list">
+                                                <li><a href="products.html?category=tables&subcat=Cabin+Tables">&bull; Cabin Tables</a></li>
+                                                <li><a href="products.html?category=tables&subcat=Meeting+Tables">&bull; Meeting Tables</a></li>
+                                                <li><a href="products.html?category=tables&subcat=Cafe+Tables">&bull; Cafe Tables</a></li>
+                                                <li><a href="products.html?category=tables&subcat=Training+Tables">&bull; Training Tables</a></li>
+                                            </ul>
+                                        </div>
+
+                                        <!-- 3. Storage -->
+                                        <div>
+                                            <a href="products.html?category=storage" class="mega-category-title d-block">Storage</a>
+                                            <ul class="mega-subcategory-list">
+                                                <li><a href="products.html?category=storage&subcat=Prelam+Storage">&bull; Prelam Storage</a></li>
+                                                <li><a href="products.html?category=storage&subcat=Metal+Storage">&bull; Metal Storage</a></li>
+                                                <li><a href="products.html?category=storage&subcat=Compactor+Storage">&bull; Compactor Storage</a></li>
+                                                <li><a href="products.html?category=storage&subcat=Locker">&bull; Locker</a></li>
+                                            </ul>
+                                        </div>
+
+                                        <!-- 4. Seating -->
+                                        <div>
+                                            <a href="products.html?category=seating" class="mega-category-title d-block">Seating</a>
+                                            <ul class="mega-subcategory-list">
+                                                <li><a href="products.html?category=seating&subcat=Mesh+Chair">&bull; Mesh Chair</a></li>
+                                                <li><a href="products.html?category=seating&subcat=Leather+Chair">&bull; Leather Chair</a></li>
+                                                <li><a href="products.html?category=seating&subcat=Training+Chair">&bull; Training Chair</a></li>
+                                                <li><a href="products.html?category=seating&subcat=Cafe+Chair">&bull; Cafe Chair</a></li>
+                                            </ul>
+                                        </div>
+
+                                        <!-- 5. Soft Seating -->
+                                        <div>
+                                            <a href="products.html?category=soft-seating" class="mega-category-title d-block">Soft Seating</a>
+                                            <ul class="mega-subcategory-list">
+                                                <li><a href="products.html?category=soft-seating&subcat=Lounge">&bull; Lounge</a></li>
+                                                <li><a href="products.html?category=soft-seating&subcat=Sofa">&bull; Sofa</a></li>
+                                                <li><a href="products.html?category=soft-seating&subcat=Collaborative">&bull; Collaborative</a></li>
+                                                <li><a href="products.html?category=soft-seating&subcat=Pouffe">&bull; Pouffe</a></li>
+                                                <li><a href="products.html?category=soft-seating&subcat=Occasional+Tables">&bull; Occasional Tables</a></li>
+                                            </ul>
+                                        </div>
+
+                                        <!-- 6. Pods -->
+                                        <div>
+                                            <a href="products.html?category=pods" class="mega-category-title d-block">Pods</a>
+                                        </div>
+
+                                        <!-- 7. Carpets -->
+                                        <div>
+                                            <a href="products.html?category=carpets" class="mega-category-title d-block">Carpets</a>
+                                        </div>
+
+                                        <!-- 8. Outdoor -->
+                                        <div>
+                                            <a href="products.html?category=outdoor" class="mega-category-title d-block">Outdoor</a>
+                                        </div>
+
+                                        <!-- 9. Educational -->
+                                        <div>
+                                            <a href="products.html?category=educational" class="mega-category-title d-block">Educational</a>
+                                            <ul class="mega-subcategory-list">
+                                                <li><a href="products.html?category=educational&subcat=Classroom">&bull; Classroom</a></li>
+                                                <li><a href="products.html?category=educational&subcat=Library">&bull; Library</a></li>
+                                                <li><a href="products.html?category=educational&subcat=Hostel">&bull; Hostel</a></li>
+                                                <li><a href="products.html?category=educational&subcat=Auditorium">&bull; Auditorium</a></li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- 4. Contact Us -->
+                            <li class="text-menu menu-item">
+                                <a href="contact.html" class="item-link fw-bold" style="font-size: 15px !important; font-weight: 700 !important; color: #222222 !important;">Contact Us</a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <!-- Header Right CTA -->
+                    <div class="header-right d-flex align-items-center gap-3">
+                        <button type="button" class="nav-enquire-btn" data-bs-toggle="modal" data-bs-target="#enquireModal">
+                            Enquire Now
+                        </button>
+                        <a href="#mobileMenu" data-bs-toggle="offcanvas" class="mobile-button d-xl-none text-dark fs-3">
+                            <div class="burger">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+        <!-- End header -->
+
+
+
 
 
 <!-- Animated Hero Section -->
@@ -532,5 +1601,628 @@
     .product-cat-card:hover img {
         transform: scale(1.08);
     }
-</style><?php include('footer.php'); ?>
+</style>         <!-- Footer -->
+        <footer class="footer bg-dark text-white pt-4 pb-2">
+            <div class="footer-body">
+                <div class="tf-container">
+                    <div class="row g-4">
+                        
+                        <!-- Company Overview -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="footer-about">
+                                <div class="site-brand-logo mb-3">
+                                    <img src="images/logo/logo-mark.png?v=2" alt="Vishista Logo" style="height: 48px;">
+                                    <div class="brand-text-wrapper">
+                                        <span class="brand-main-title text-white" style="font-size: 22px;">VISHISTA</span>
+                                        <span class="brand-sub-title text-white-50" style="font-size: 10px; letter-spacing: 2px;">OFFICE SOLUTIONS</span>
+                                    </div>
+                                </div>
+                                <p class="text-white fw-medium mb-3" style="line-height: 1.7; color: #ffffff !important; font-size: 16px !important;">
+                                    Vishista Office Solutions Pvt Ltd is a premier provider of high-end office furniture, modular workstation systems, executive seating, and turnkey corporate interior solutions across Telangana and Andhra Pradesh.
+                                </p>
+                                <a href="about.html" class="btn btn-outline-light btn-sm text-uppercase fw-semibold px-3 py-2" style="border-radius: 4px; font-size: 12px;">
+                                    Discover Our Story &rarr;
+                                </a>
+                            </div>
+                        </div>
+
+                         <!-- Quick Links -->
+                        <div class="col-lg-2 col-md-6">
+                            <h5 class="text-uppercase fw-extrabold text-white mb-3 pb-2 border-bottom border-danger" style="font-size: 17px !important; letter-spacing: 1px !important; font-family: 'Inter', sans-serif !important;">Quick Links</h5>
+                            <ul class="list-unstyled d-flex flex-column gap-3 mb-0" style="font-size: 15.5px !important;">
+                                <li><a href="index.html" class="text-white text-decoration-none hover-red py-1 d-block" style="font-weight: 600 !important;">&bull; Home</a></li>
+                                <li><a href="about.html" class="text-white text-decoration-none hover-red py-1 d-block" style="font-weight: 600 !important;">&bull; About Us</a></li>
+                                <li><a href="product-categories.html" class="text-white text-decoration-none hover-red py-1 d-block" style="font-weight: 600 !important;">&bull; Products</a></li>
+                                <li><a href="contact.html" class="text-white text-decoration-none hover-red py-1 d-block" style="font-weight: 600 !important;">&bull; Contact Us</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Product Categories -->
+                        <div class="col-lg-3 col-md-6">
+                            <h5 class="text-uppercase fw-extrabold text-white mb-3 pb-2 border-bottom border-danger" style="font-size: 17px !important; letter-spacing: 1px !important; font-family: 'Inter', sans-serif !important;">Product Categories</h5>
+                            <div class="row g-2" style="font-size: 15.5px !important;">
+                                <div class="col-6">
+                                    <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+                                        <li><a href="product-catalogue-view.html?cat=Workstations" class="text-white text-decoration-none hover-red py-1 d-block" style="font-weight: 600 !important;">&bull; Workstations</a></li>
+                                        <li><a href="product-catalogue-view.html?cat=Tables" class="text-white text-decoration-none hover-red py-1 d-block" style="font-weight: 600 !important;">&bull; Tables</a></li>
+                                        <li><a href="product-catalogue-view.html?cat=Storage" class="text-white text-decoration-none hover-red py-1 d-block" style="font-weight: 600 !important;">&bull; Storage</a></li>
+                                        <li><a href="product-catalogue-view.html?cat=Seating" class="text-white text-decoration-none hover-red py-1 d-block" style="font-weight: 600 !important;">&bull; Seating</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6">
+                                    <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+                                        <li><a href="product-catalogue-view.html?cat=Soft%20Seating" class="text-white text-decoration-none hover-red py-1 d-block" style="font-weight: 600 !important;">&bull; Soft Seating</a></li>
+                                        <li><a href="product-catalogue-view.html?cat=Pods" class="text-white text-decoration-none hover-red py-1 d-block" style="font-weight: 600 !important;">&bull; Pods</a></li>
+                                        <li><a href="product-catalogue-view.html?cat=Carpets" class="text-white text-decoration-none hover-red py-1 d-block" style="font-weight: 600 !important;">&bull; Carpets</a></li>
+                                        <li><a href="product-catalogue-view.html?cat=Outdoor" class="text-white text-decoration-none hover-red py-1 d-block" style="font-weight: 600 !important;">&bull; Outdoor</a></li>
+                                        <li><a href="product-catalogue-view.html?cat=Educational" class="text-white text-decoration-none hover-red py-1 d-block" style="font-weight: 600 !important;">&bull; Educational</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Details -->
+                        <div class="col-lg-3 col-md-6">
+                            <h5 class="text-uppercase fw-extrabold text-white mb-3 pb-2 border-bottom border-danger" style="font-size: 17px !important; letter-spacing: 1px !important; font-family: 'Inter', sans-serif !important;">Contact Us</h5>
+                            <div class="d-flex flex-column gap-3 text-white" style="font-size: 14.5px !important;">
+                                <div class="footer-contact-block">
+                                    <strong class="text-danger d-block mb-1 text-uppercase tracking-wider" style="font-size: 14px !important; font-weight: 800 !important;">&bull; Head Office:</strong>
+                                    <span style="line-height: 1.6; display: block; color: #ffffff !important; font-weight: 600; word-break: break-word; overflow-wrap: anywhere;">
+                                        Saishruthi Nilyam, Street No. 4,<br>
+                                        Sri Sathya Sai Enclave, Plot No. 109,<br>
+                                        Old Bowenpally, Secunderabad, Telangana 500009
+                                    </span>
+                                </div>
+                                <div class="footer-contact-block">
+                                    <strong class="text-danger d-block mb-1 text-uppercase tracking-wider" style="font-size: 14px !important; font-weight: 800 !important;">&bull; Emails:</strong>
+                                    <div class="d-flex flex-column gap-2" style="font-weight: 600;">
+                                        <div class="d-flex align-items-baseline gap-2">
+                                            <span class="text-white flex-shrink-0" style="font-size: 14px;">&bull;</span>
+                                            <a href="mailto:info@vishistaofficesolutions.com" class="text-white text-decoration-none hover-red" style="word-break: break-all; overflow-wrap: anywhere; font-size: 13.5px;">info@vishistaofficesolutions.com</a>
+                                        </div>
+                                        <div class="d-flex align-items-baseline gap-2">
+                                            <span class="text-white flex-shrink-0" style="font-size: 14px;">&bull;</span>
+                                            <a href="mailto:sales@vishistaofficesolutions.com" class="text-white text-decoration-none hover-red" style="word-break: break-all; overflow-wrap: anywhere; font-size: 13.5px;">sales@vishistaofficesolutions.com</a>
+                                        </div>
+                                        <div class="d-flex align-items-baseline gap-2">
+                                            <span class="text-white flex-shrink-0" style="font-size: 14px;">&bull;</span>
+                                            <a href="mailto:kvramana.reddy@vishistaofficesolutions.com" class="text-white text-decoration-none hover-red" style="word-break: break-all; overflow-wrap: anywhere; font-size: 13.5px;">kvramana.reddy@vishistaofficesolutions.com</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer-contact-block">
+                                    <strong class="text-danger d-block mb-1 text-uppercase tracking-wider" style="font-size: 14px !important; font-weight: 800 !important;">&bull; WhatsApp &amp; Sales:</strong>
+                                    <div class="d-flex align-items-baseline gap-2">
+                                        <span class="text-white flex-shrink-0" style="font-size: 14px;">&bull;</span>
+                                        <a href="https://wa.me/919849058444" target="_blank" class="text-white fw-bold text-decoration-none hover-red" style="font-size: 15px !important; word-break: break-word;">+91 9849058444</a>
+                                    </div>
+                                </div>
+                                <div class="pt-1">
+                                    <a href="https://maps.app.goo.gl/Svm1wBx323dVFtx18" target="_blank" class="btn btn-danger btn-sm text-uppercase fw-bold px-3 py-2 shadow-sm" style="border-radius: 6px; font-size: 13px; letter-spacing: 0.5px;">
+                                        Get Directions &rarr;
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom mt-4 pt-3 border-top border-secondary-subtle">
+                <div class="tf-container">
+                    <div class="d-flex flex-column flex-md-row align-items-center justify-content-between text-white-50 fs-7 gap-2 py-1 footer-bottom-content">
+                        <p class="mb-0 text-white-50" style="word-break: break-word; font-size: 13px;">&copy; 2026 Vishista Office Solutions Pvt Ltd. All Rights Reserved.</p>
+                        <p class="mb-0 text-white-50" style="word-break: break-word; font-size: 13px;">Designed for Corporate &amp; Institutional Workspaces.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- /Footer -->
+
+    </div>
+    <!-- /wrapper -->
+
+    <!-- Mobile Menu Offcanvas Drawer -->
+    <div class="offcanvas offcanvas-start canvas-mb" id="mobileMenu" tabindex="-1" style="width: 310px; max-width: 85vw;">
+        <div class="offcanvas-header d-flex align-items-center justify-content-between p-3 border-bottom">
+            <a href="index.html" class="d-flex align-items-center gap-2 text-decoration-none">
+                <img src="images/logo/logo-mark.png?v=2" alt="Vishista Logo" style="height: 38px; width: auto; flex-shrink: 0;">
+                <div style="display: flex; flex-direction: column; line-height: 1.1; white-space: nowrap;">
+                    <span style="font-size: 16px; font-weight: 800; color: #d32f2f; letter-spacing: 0.5px;">VISHISTA</span>
+                    <span style="font-size: 8px; font-weight: 700; color: #555555; letter-spacing: 1.1px; margin-top: 2px;">OFFICE SOLUTIONS</span>
+                </div>
+            </a>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+
+        <div class="offcanvas-body p-3 d-flex flex-column justify-content-between">
+            <ul class="nav flex-column gap-2 mb-4 list-unstyled w-100">
+                <!-- 1. Home -->
+                <li class="nav-item w-100">
+                    <a class="mobile-nav-link w-100 d-flex align-items-center justify-content-between" href="index.html">
+                        <span>Home</span>
+                    </a>
+                </li>
+
+                <!-- 2. About Us -->
+                <li class="nav-item w-100">
+                    <a class="mobile-nav-link w-100 d-flex align-items-center justify-content-between" href="about.html">
+                        <span>About Us</span>
+                    </a>
+                </li>
+
+                <!-- 3. Products Accordion Dropdown -->
+                <li class="nav-item w-100">
+                    <a class="mobile-nav-link w-100 d-flex align-items-center justify-content-between" href="#mobileProductsCollapse" role="button" aria-expanded="false" aria-controls="mobileProductsCollapse">
+                        <span>Products</span>
+                        <span class="chevron-box"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                    </a>
+                    
+                    <div class="collapse mt-2" id="mobileProductsCollapse">
+                        <div class="mobile-accordion-group d-flex flex-column gap-2">
+                            
+                            <!-- 1. Workstations -->
+                            <div class="p-3 rounded-3" style="background-color: #f8f9fa; border: 1px solid #e9ecef;">
+                                <a href="product-categories.html?category=workstations" class="fw-bold text-dark fs-6 text-decoration-none d-block mb-2" style="font-family: 'Inter', sans-serif; font-size: 15px !important; font-weight: 700 !important; color: #111111 !important;">
+                                    Workstations &rarr;
+                                </a>
+                                <ul class="nav flex-column gap-1 mobile-nested-group list-unstyled m-0 ps-2">
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=workstations">&bull; Height Adjustable Series</a></li>
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=workstations">&bull; Desking Series</a></li>
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=workstations">&bull; Panel Series</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- 2. Tables -->
+                            <div class="p-3 rounded-3" style="background-color: #f8f9fa; border: 1px solid #e9ecef;">
+                                <a href="product-categories.html?category=tables" class="fw-bold text-dark fs-6 text-decoration-none d-block mb-2" style="font-family: 'Inter', sans-serif; font-size: 15px !important; font-weight: 700 !important; color: #111111 !important;">
+                                    Tables &rarr;
+                                </a>
+                                <ul class="nav flex-column gap-1 mobile-nested-group list-unstyled m-0 ps-2">
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=tables">&bull; Cabin Tables</a></li>
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=tables">&bull; Meeting Tables</a></li>
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=tables">&bull; Cafe Tables</a></li>
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=tables">&bull; Training Tables</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- 3. Storage -->
+                            <div class="p-3 rounded-3" style="background-color: #f8f9fa; border: 1px solid #e9ecef;">
+                                <a href="product-categories.html?category=storage" class="fw-bold text-dark fs-6 text-decoration-none d-block mb-2" style="font-family: 'Inter', sans-serif; font-size: 15px !important; font-weight: 700 !important; color: #111111 !important;">
+                                    Storage &rarr;
+                                </a>
+                                <ul class="nav flex-column gap-1 mobile-nested-group list-unstyled m-0 ps-2">
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=storage">&bull; Prelam Storage</a></li>
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=storage">&bull; Metal Storage</a></li>
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=storage">&bull; Compactor Storage</a></li>
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=storage">&bull; Locker</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- 4. Seating -->
+                            <div class="p-3 rounded-3" style="background-color: #f8f9fa; border: 1px solid #e9ecef;">
+                                <a href="product-categories.html?category=seating" class="fw-bold text-dark fs-6 text-decoration-none d-block mb-2" style="font-family: 'Inter', sans-serif; font-size: 15px !important; font-weight: 700 !important; color: #111111 !important;">
+                                    Seating &rarr;
+                                </a>
+                                <ul class="nav flex-column gap-1 mobile-nested-group list-unstyled m-0 ps-2">
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=seating">&bull; Mesh Chair</a></li>
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=seating">&bull; Leather Chair</a></li>
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=seating">&bull; Training Chair</a></li>
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=seating">&bull; Cafe Chair</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- 5. Soft Seating -->
+                            <div class="p-3 rounded-3" style="background-color: #f8f9fa; border: 1px solid #e9ecef;">
+                                <a href="product-categories.html?category=soft-seating" class="fw-bold text-dark fs-6 text-decoration-none d-block mb-2" style="font-family: 'Inter', sans-serif; font-size: 15px !important; font-weight: 700 !important; color: #111111 !important;">
+                                    Soft Seating &rarr;
+                                </a>
+                                <ul class="nav flex-column gap-1 mobile-nested-group list-unstyled m-0 ps-2">
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=soft-seating">&bull; Lounge</a></li>
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=soft-seating">&bull; Sofa</a></li>
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=soft-seating">&bull; Collaborative</a></li>
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=soft-seating">&bull; Pouffe</a></li>
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=soft-seating">&bull; Occasional Tables</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- 9. Educational -->
+                            <div class="p-3 rounded-3" style="background-color: #f8f9fa; border: 1px solid #e9ecef;">
+                                <a href="product-categories.html?category=educational" class="fw-bold text-dark fs-6 text-decoration-none d-block mb-2" style="font-family: 'Inter', sans-serif; font-size: 15px !important; font-weight: 700 !important; color: #111111 !important;">
+                                    Educational &rarr;
+                                </a>
+                                <ul class="nav flex-column gap-1 mobile-nested-group list-unstyled m-0 ps-2">
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=educational">&bull; Classroom</a></li>
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=educational">&bull; Library</a></li>
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=educational">&bull; Hostel</a></li>
+                                    <li><a class="mobile-sub-link text-dark" style="font-family: 'Inter', sans-serif; font-size: 13.5px !important; font-weight: 600 !important; color: #333333 !important;" href="product-categories.html?category=educational">&bull; Auditorium</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+
+                <!-- 4. Contact Us -->
+                <li class="nav-item w-100">
+                    <a class="mobile-nav-link w-100 d-flex align-items-center justify-content-between" href="contact.html">
+                        <span>Contact Us</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Action Buttons -->
+            <div class="d-grid gap-2 pt-3">
+                <button type="button" class="btn btn-danger w-100 fw-bold py-2 text-uppercase shadow-sm" style="background-color: #d32f2f; border: none; border-radius: 6px; font-size: 14px; letter-spacing: 0.5px;" data-bs-toggle="modal" data-bs-target="#enquireModal" data-bs-dismiss="offcanvas">
+                    ENQUIRE NOW
+                </button>
+                <a href="https://wa.me/919849058444" target="_blank" class="btn btn-outline-success w-100 fw-bold py-2 d-flex align-items-center justify-content-center gap-2" style="border-radius: 6px; font-size: 14px;">
+                    Chat on WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- /Mobile Menu Offcanvas -->
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/919849058444?text=Hi%20Vishista%20Office%20Solutions,%20I%20am%20interested%20in%20your%20ArchLabs%20seating%20and%20workspace%20furniture." target="_blank" rel="noopener noreferrer" class="whatsapp-float-btn" title="Chat on WhatsApp">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382C17.015 14.155 14.764 13.045 14.341 12.891C13.918 12.737 13.612 12.66 13.306 13.118C13 13.576 12.115 14.614 11.848 14.92C11.58 15.226 11.312 15.265 10.855 15.038C10.398 14.811 8.928 14.33 7.18 12.772C5.811 11.554 4.887 10.05 4.619 9.593C4.351 9.135 4.59 8.887 4.819 8.659C5.025 8.454 5.277 8.125 5.506 7.857C5.735 7.589 5.812 7.398 5.965 7.092C6.118 6.786 6.041 6.518 5.926 6.289C5.812 6.06 4.895 3.805 4.512 2.889C4.14 1.998 3.762 2.118 3.486 2.104C3.226 2.091 2.92 2.091 2.614 2.091C2.308 2.091 1.811 2.206 1.391 2.664C0.971 3.122 0 4.032 0 5.867C0 7.702 1.336 9.475 1.527 9.735C1.718 9.995 4.155 13.748 7.876 15.356C8.761 15.738 9.452 15.967 9.993 16.139C10.88 16.421 11.688 16.381 12.33 16.285C13.046 16.178 14.536 15.383 14.842 14.524C15.148 13.665 15.148 12.939 15.056 12.786C14.964 12.633 14.658 12.556 14.201 12.329H17.472Z" fill="white" transform="translate(3, 3)"/>
+        </svg>
+        <span class="whatsapp-text">Chat on WhatsApp</span>
+    </a>
+
+    <!-- Product Quick View Modal (Video 3 Requirement) -->
+    <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+                <div class="modal-header bg-dark text-white border-0 px-4 py-3" style="background: linear-gradient(135deg, #111111 0%, #222222 100%);">
+                    <div>
+                        <span class="badge bg-danger text-uppercase px-2 py-1 mb-1 fs-7" id="productModalBadge">Product Details</span>
+                        <h4 class="modal-title fw-bold text-white mb-0" id="productModalTitle">Product Details</h4>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 bg-white">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-md-6 text-center">
+                            <div class="p-3 bg-light rounded-3 border">
+                                <img id="productModalImg" src="" alt="Product Image" class="img-fluid rounded-3" style="max-height: 320px; object-fit: contain; width: 100%;">
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex flex-column">
+                            <h3 id="productModalName" class="fw-black text-dark mb-2" style="font-size: 1.6rem !important; font-weight: 900 !important; color: #111111 !important;">Product Name</h3>
+                            <div class="mb-3">
+                                <span id="productModalPrice" class="badge bg-danger fs-6 px-3 py-2 fw-bold">Enquire for Price</span>
+                            </div>
+                            <p id="productModalDesc" class="text-secondary fw-semibold fs-6 mb-4" style="line-height: 1.65; color: #333333 !important;">Detailed product specifications and features...</p>
+                            <div class="mt-auto d-grid gap-2">
+                                <button type="button" id="productModalEnquireBtn" class="btn btn-danger btn-lg text-uppercase fw-black py-3 shadow-md" style="border-radius: 8px; background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%); border: none;">ENQUIRE NOW &rarr;</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Corporate Enquiry Modal -->
+    <div class="modal fade" id="enquireModal" tabindex="-1" aria-labelledby="enquireModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px; overflow: hidden;">
+                <div class="modal-header bg-dark text-white border-0 px-4 py-3" style="background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);">
+                    <div>
+                        <h5 class="modal-title fw-bold text-white mb-0" id="enquireModalLabel">Workspace Solution Enquiry</h5>
+                        <small class="text-white-50">Vishista Office Solutions Pvt Ltd</small>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 bg-white">
+                    <form id="modalEnquiryForm" onsubmit="handleEnquirySubmit(event)">
+                        <div class="mb-3">
+                            <label class="form-label text-dark fw-bold mb-2" style="font-size: 1.25rem !important; color: #111111 !important;">Product / Service of Interest</label>
+                            <input type="text" id="modalProductInput" class="form-control" placeholder="ArchLabs Seating, Workstations, Turnkey Interiors, etc." style="border-radius: 6px; padding: 14px 16px; font-size: 1.15rem !important; font-weight: 600 !important; color: #111111 !important;">
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label text-dark fw-bold mb-2" style="font-size: 1.25rem !important; color: #111111 !important;">Your Name *</label>
+                                <input type="text" class="form-control" required placeholder="Full Name" style="border-radius: 6px; padding: 14px 16px; font-size: 1.15rem !important; font-weight: 600 !important; color: #111111 !important;">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-dark fw-bold mb-2" style="font-size: 1.25rem !important; color: #111111 !important;">Company Name</label>
+                                <input type="text" class="form-control" placeholder="Organization" style="border-radius: 6px; padding: 14px 16px; font-size: 1.15rem !important; font-weight: 600 !important; color: #111111 !important;">
+                            </div>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label text-dark fw-bold mb-2" style="font-size: 1.25rem !important; color: #111111 !important;">Phone Number *</label>
+                                <input type="tel" class="form-control" required placeholder="Mobile Number" style="border-radius: 6px; padding: 14px 16px; font-size: 1.15rem !important; font-weight: 600 !important; color: #111111 !important;">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-dark fw-bold mb-2" style="font-size: 1.25rem !important; color: #111111 !important;">Email Address *</label>
+                                <input type="email" class="form-control" required placeholder="name@company.com" style="border-radius: 6px; padding: 14px 16px; font-size: 1.15rem !important; font-weight: 600 !important; color: #111111 !important;">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-dark fw-bold mb-2" style="font-size: 1.25rem !important; color: #111111 !important;">Message / Project Requirements</label>
+                            <textarea class="form-control" rows="3" placeholder="Specify floor size, seating capacity, timeline, or location..." style="border-radius: 6px; padding: 14px 16px; font-size: 1.15rem !important; font-weight: 600 !important; color: #111111 !important;"></textarea>
+                        </div>
+                        <div class="d-grid pt-2">
+                            <button type="submit" class="btn btn-danger w-100 justify-content-center text-uppercase fw-black shadow-sm py-3" style="border-radius: 6px; background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%); border: none; font-size: 16px; letter-spacing: 0.5px;">Submit Enquiry</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Animated Toast Notification Popup Container -->
+    <div id="enquiryToastPopup" class="position-fixed top-0 end-0 p-4" style="z-index: 10555; display: none;">
+        <div class="toast show align-items-center text-white bg-dark border-0 shadow-lg p-3" style="border-radius: 12px; background: linear-gradient(135deg, #111 0%, #222 100%) !important; min-width: 320px; animation: popupBounce 0.5s ease-out;">
+            <div class="d-flex align-items-center">
+                <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center me-3" style="width: 42px; height: 42px; font-size: 20px; flex-shrink: 0;">✓</div>
+                <div class="flex-grow-1">
+                    <h6 class="fw-bold mb-1 text-white">Enquiry Received!</h6>
+                    <p class="mb-0 fs-7 text-white-50">Thank you! Our workspace team will contact you shortly.</p>
+                </div>
+                <button type="button" class="btn-close btn-close-white ms-2" onclick="document.getElementById('enquiryToastPopup').style.display='none'"></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function handleEnquirySubmit(e) {
+        e.preventDefault();
+        const modalEl = document.getElementById('enquireModal');
+        if (modalEl) {
+            const modalInstance = bootstrap.Modal.getInstance(modalEl);
+            if (modalInstance) modalInstance.hide();
+        }
+        const toast = document.getElementById('enquiryToastPopup');
+        if (toast) {
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 5000);
+        } else {
+            alert('Thank you for your enquiry! Our workspace team will contact you shortly.');
+        }
+        e.target.reset();
+    }
+    </script>
+
+    <style>
+        .whatsapp-float-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: #25d366;
+            color: #ffffff !important;
+            border-radius: 50px;
+            padding: 10px 18px 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+            z-index: 9999;
+            text-decoration: none !important;
+            transition: all 0.3s ease;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .whatsapp-float-btn:hover {
+            background-color: #128c7e;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.6);
+        }
+        @media (max-width: 576px) {
+            .whatsapp-float-btn .whatsapp-text {
+                display: none;
+            }
+            .whatsapp-float-btn {
+                padding: 12px;
+                border-radius: 50%;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+
+    <!-- Javascript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/swiper-bundle.min.js"></script>
+    <script src="js/carousel.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        function openEnquiryModal(productName) {
+            if (productName) {
+                document.getElementById('modalProductInput').value = productName;
+            }
+            var modal = new bootstrap.Modal(document.getElementById('enquireModal'));
+            modal.show();
+        }
+
+        // Guaranteed Mobile Menu Nav Links & Accordion Handler
+        document.addEventListener('DOMContentLoaded', function () {
+            var mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu) {
+                // 1. Accordion Toggle for About Us & Products
+                var toggleBtns = mobileMenu.querySelectorAll('.mobile-nav-link');
+                toggleBtns.forEach(function (btn) {
+                    btn.addEventListener('click', function (e) {
+                        var targetSelector = this.getAttribute('href') || this.getAttribute('data-bs-target');
+                        if (targetSelector && targetSelector.startsWith('#mobile')) {
+                            e.preventDefault();
+                            var targetEl = document.querySelector(targetSelector);
+                            if (targetEl) {
+                                if (typeof bootstrap !== 'undefined' && bootstrap.Collapse) {
+                                    var bsCollapse = bootstrap.Collapse.getOrCreateInstance(targetEl, { toggle: false });
+                                    if (targetEl.classList.contains('show')) {
+                                        bsCollapse.hide();
+                                        this.setAttribute('aria-expanded', 'false');
+                                    } else {
+                                        bsCollapse.show();
+                                        this.setAttribute('aria-expanded', 'true');
+                                    }
+                                } else {
+                                    var isShown = targetEl.classList.contains('show');
+                                    if (isShown) {
+                                        targetEl.classList.remove('show');
+                                        this.setAttribute('aria-expanded', 'false');
+                                    } else {
+                                        targetEl.classList.add('show');
+                                        this.setAttribute('aria-expanded', 'true');
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
+
+                // 2. Subcategory & Menu Page Links Click Navigation
+                var pageLinks = mobileMenu.querySelectorAll('a[href]');
+                pageLinks.forEach(function (link) {
+                    var href = link.getAttribute('href');
+                    if (href && !href.startsWith('#mobile') && href !== '#') {
+                        link.addEventListener('click', function (e) {
+                            if (typeof bootstrap !== 'undefined' && bootstrap.Offcanvas) {
+                                var bsOffcanvas = bootstrap.Offcanvas.getInstance(mobileMenu);
+                                if (bsOffcanvas) {
+                                    bsOffcanvas.hide();
+                                }
+                            }
+                            window.location.href = href;
+                        });
+                    }
+                });
+            }
+        });
+        // IntersectionObserver for Smooth Scroll Reveal Animations
+        document.addEventListener('DOMContentLoaded', function () {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -40px 0px"
+            };
+
+            const scrollObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('scroll-animated-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const animatableElements = document.querySelectorAll('.card, .product-cat-card, .scrolling-marquee-container');
+            animatableElements.forEach((el, index) => {
+                el.classList.add('scroll-animatable');
+                el.style.transitionDelay = ((index % 3) * 0.12) + 's';
+                scrollObserver.observe(el);
+            });
+        });
+
+        // Smooth Card Hover Micro-Animations
+        document.addEventListener('DOMContentLoaded', function () {
+            const hoverCards = document.querySelectorAll('.card, .product-cat-card');
+            hoverCards.forEach(card => {
+                card.classList.add('clean-hover-card');
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Dedicated Mobile Hamburger Button Handler (Works 100% reliably across all pages)
+            document.addEventListener('click', function(e) {
+                const btn = e.target.closest('.mobile-button, [data-bs-target="#mobileMenu"], a[href="#mobileMenu"]');
+                if (btn) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const offcanvasEl = document.getElementById('mobileMenu');
+                    if (offcanvasEl && typeof bootstrap !== 'undefined' && bootstrap.Offcanvas) {
+                        const bsOffcanvas = bootstrap.Offcanvas.getOrCreateInstance(offcanvasEl);
+                        bsOffcanvas.show();
+                    } else if (offcanvasEl) {
+                        offcanvasEl.classList.add('show');
+                        offcanvasEl.style.visibility = 'visible';
+                    }
+                }
+            });
+
+            // Smooth Scroll for in-page section anchors ONLY (excluding modals, collapse, offcanvas)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    if (this.hasAttribute('data-bs-toggle') || this.hasAttribute('data-bs-target') || this.classList.contains('mobile-button')) {
+                        return;
+                    }
+                    const targetId = this.getAttribute('href');
+                    if (targetId && targetId !== '#' && targetId !== '#0' && !targetId.startsWith('#mobile') && !targetId.startsWith('#enquire')) {
+                        try {
+                            const targetEl = document.querySelector(targetId);
+                            if (targetEl && !targetEl.classList.contains('offcanvas') && !targetEl.classList.contains('modal') && !targetEl.classList.contains('collapse')) {
+                                e.preventDefault();
+                                targetEl.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }
+                        } catch(err) {}
+                    }
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .scroll-animatable {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .scroll-animated-in {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Clean Card Hover Micro-Animations */
+        .clean-hover-card {
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+        .clean-hover-card:hover {
+            transform: translateY(-6px) !important;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        /* Mobile Responsive Footer Fixes - No Text Cutoff */
+        @media (max-width: 768px) {
+            .footer-contact-block a,
+            .footer-contact-block span {
+                word-break: break-word !important;
+                overflow-wrap: anywhere !important;
+                max-width: 100% !important;
+                font-size: 13.5px !important;
+                line-height: 1.55 !important;
+            }
+            .footer-bottom {
+                padding-bottom: 95px !important; /* Prevents floating WhatsApp & Scroll-To-Top button overlap */
+            }
+            .footer-bottom p {
+                text-align: center !important;
+                font-size: 12.5px !important;
+            }
+        }
+    </style>
+
+</body>
+
+</html>
+
+
 

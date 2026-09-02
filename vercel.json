@@ -1,16 +1,8 @@
 {
+  "buildCommand": "node build.js",
+  "outputDirectory": "public",
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/index.php", "destination": "/index.html" },
-    { "source": "/about.php", "destination": "/about.html" },
-    { "source": "/archlabs-catalogue.php", "destination": "/archlabs-catalogue.html" },
-    { "source": "/categories.php", "destination": "/product-categories.html" },
-    { "source": "/product-categories.php", "destination": "/product-categories.html" },
-    { "source": "/products.php", "destination": "/products.html" },
-    { "source": "/product-sofas.php", "destination": "/product-sofas.html" },
-    { "source": "/product-catalogue-view.php", "destination": "/product-catalogue-view.html" },
-    { "source": "/contact.php", "destination": "/contact.html" },
     { "source": "/admin", "destination": "/admin/index.html" },
     { "source": "/admin/", "destination": "/admin/index.html" },
     { "source": "/admin/:path*", "destination": "/admin/index.html" }
