@@ -76,7 +76,7 @@ async function syncHeroSection() {
         }
         if (slideImages.length === 0) {
             slideImages = [
-                'https://res.cloudinary.com/iw4ntmv5/image/upload/v1788282110/hcunvmhptsrfbjizt5bk.jpg'
+                'images/sections/hero-banner-1.jpg'
             ];
         }
 
