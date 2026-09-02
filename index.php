@@ -1330,7 +1330,7 @@
                     <p class="text-dark fw-bold mb-4" style="font-size: 1.35rem !important; line-height: 1.7; color: #111111 !important;">
                         Our expertise spans design consultation, product selection, multi-vendor coordination, installation, and dedicated after-sales support — making us a trusted partner for organizations seeking reliable and professional workspace transformation.
                     </p>
-                    <a href="about.html" class="btn btn-dark btn-lg px-4 py-3 fw-bold text-uppercase shadow-sm" style="border-radius: 4px; font-size: 14px;">
+                    <a href="about.html" class="btn btn-danger btn-lg px-4 py-3 fw-bold text-uppercase shadow-sm" style="background-color: #d32f2f; border-color: #d32f2f; border-radius: 4px; font-size: 14px;">
                         Discover Our Story &rarr;
                     </a>
                 </div>
