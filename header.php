@@ -19,7 +19,7 @@
     <!-- SEO Meta Tags -->
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
-    <link rel="canonical" href="https://vishistasolutions.vercel.app/">
+    <link rel="canonical" href="https://www.vishistaofficesolutions.com/">
     <meta name="geo.region" content="IN-TG">
     <meta name="geo.placename" content="Hyderabad">
     <meta name="geo.position" content="17.385044;78.486671">
@@ -33,7 +33,7 @@
     <meta property="og:site_name" content="Vishista Office Solutions">
     <meta property="og:title" content="Vishista Office Solutions - Premium Office Furniture & Turnkey Workspaces">
     <meta property="og:description" content="Leading provider of premium office furniture, ArchLabs seating collections, modular workstations, and turnkey corporate interior solutions in Hyderabad, Telangana & Andhra Pradesh.">
-    <meta property="og:url" content="https://vishistasolutions.vercel.app/">
+    <meta property="og:url" content="https://www.vishistaofficesolutions.com/">
     <meta property="og:image" content="https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1200/v1788282238/lsceaw7eu2jmpvgv4le1.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -57,12 +57,12 @@
     {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
-        "@id": "https://vishistasolutions.vercel.app/#organization",
+        "@id": "https://www.vishistaofficesolutions.com/#organization",
         "name": "Vishista Office Solutions Pvt Ltd",
         "alternateName": "Vishista Office Solutions",
         "description": "Premium office furniture provider offering ArchLabs seating, modular workstations, executive tables, and turnkey corporate interior solutions in Hyderabad, Telangana and Andhra Pradesh.",
-        "url": "https://vishistasolutions.vercel.app/",
-        "logo": "https://vishistasolutions.vercel.app/images/logo/logo-mark.png",
+        "url": "https://www.vishistaofficesolutions.com/",
+        "logo": "https://www.vishistaofficesolutions.com/images/logo/logo-mark.png",
         "image": "https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1200/v1788282238/lsceaw7eu2jmpvgv4le1.jpg",
         "telephone": "+91-9391038107",
         "email": "info@vishistaofficesolutions.com",
@@ -100,10 +100,10 @@
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Vishista Office Solutions",
-        "url": "https://vishistasolutions.vercel.app/",
+        "url": "https://www.vishistaofficesolutions.com/",
         "potentialAction": {
             "@type": "SearchAction",
-            "target": "https://vishistasolutions.vercel.app/products?search={search_term_string}",
+            "target": "https://www.vishistaofficesolutions.com/products?search={search_term_string}",
             "query-input": "required name=search_term_string"
         }
     }
@@ -115,12 +115,12 @@
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://vishistasolutions.vercel.app/" },
-            { "@type": "ListItem", "position": 2, "name": "Products", "item": "https://vishistasolutions.vercel.app/products" },
-            { "@type": "ListItem", "position": 3, "name": "Categories", "item": "https://vishistasolutions.vercel.app/product-categories" },
-            { "@type": "ListItem", "position": 4, "name": "ArchLabs Catalogue", "item": "https://vishistasolutions.vercel.app/archlabs-catalogue" },
-            { "@type": "ListItem", "position": 5, "name": "About Us", "item": "https://vishistasolutions.vercel.app/about" },
-            { "@type": "ListItem", "position": 6, "name": "Contact", "item": "https://vishistasolutions.vercel.app/contact" }
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.vishistaofficesolutions.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Products", "item": "https://www.vishistaofficesolutions.com/products" },
+            { "@type": "ListItem", "position": 3, "name": "Categories", "item": "https://www.vishistaofficesolutions.com/product-categories" },
+            { "@type": "ListItem", "position": 4, "name": "ArchLabs Catalogue", "item": "https://www.vishistaofficesolutions.com/archlabs-catalogue" },
+            { "@type": "ListItem", "position": 5, "name": "About Us", "item": "https://www.vishistaofficesolutions.com/about" },
+            { "@type": "ListItem", "position": 6, "name": "Contact", "item": "https://www.vishistaofficesolutions.com/contact" }
         ]
     }
     </script>
