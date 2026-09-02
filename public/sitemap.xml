@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://vishistasolutions.vercel.app/</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1200/v1788282238/lsceaw7eu2jmpvgv4le1.jpg</image:loc>
+      <image:title>Vishista Office Solutions - Premium Office Furniture</image:title>
+    </image:image>
+  </url>
+
+  <!-- About Us -->
+  <url>
+    <loc>https://vishistasolutions.vercel.app/about</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Product Categories -->
+  <url>
+    <loc>https://vishistasolutions.vercel.app/product-categories</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Products -->
+  <url>
+    <loc>https://vishistasolutions.vercel.app/products</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Product Catalogue View -->
+  <url>
+    <loc>https://vishistasolutions.vercel.app/product-catalogue-view</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ArchLabs Seating Catalogue -->
+  <url>
+    <loc>https://vishistasolutions.vercel.app/archlabs-catalogue</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Product Sofas -->
+  <url>
+    <loc>https://vishistasolutions.vercel.app/product-sofas</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Contact Us -->
+  <url>
+    <loc>https://vishistasolutions.vercel.app/contact</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>

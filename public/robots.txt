@@ -1,0 +1,14 @@
+# Vishista Office Solutions - Robots.txt
+# https://vishistasolutions.vercel.app
+
+User-agent: *
+Allow: /
+
+# Disallow admin panel and API routes
+Disallow: /admin/
+Disallow: /api/
+Disallow: /data/
+Disallow: /includes/
+
+# Sitemap location
+Sitemap: https://vishistasolutions.vercel.app/sitemap.xml
