@@ -25,8 +25,8 @@
     <meta name="geo.position" content="17.385044;78.486671">
     <meta name="ICBM" content="17.385044, 78.486671">
 
-    <!-- Google Search Console Verification (Replace YOUR_VERIFICATION_CODE after setup) -->
-    <meta name="google-site-verification" content="PASTE_YOUR_GOOGLE_VERIFICATION_CODE_HERE">
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="54bce442d51ef2d1">
 
     <!-- Open Graph / Facebook Meta Tags -->
     <meta property="og:type" content="website">
