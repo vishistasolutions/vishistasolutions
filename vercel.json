@@ -2,6 +2,18 @@
   "buildCommand": "node build.js",
   "outputDirectory": "public",
   "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/webmail",
+      "destination": "https://mail.vishistaofficesolutions.com:2096",
+      "permanent": false
+    },
+    {
+      "source": "/cpanel",
+      "destination": "https://mail.vishistaofficesolutions.com:2083",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     { "source": "/admin", "destination": "/admin/index.html" },
     { "source": "/admin/", "destination": "/admin/index.html" },
