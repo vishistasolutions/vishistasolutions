@@ -653,16 +653,35 @@ async function openProductDetailModal(name, image, desc, price, subcategory, add
 function openEnquiryModal(productName) {
     const input = document.getElementById('modalProductInput');
     if (input) {
-        input.value = productName || 'General Furniture Enquiry';
+        input.value = productName || '';
     }
     const modalEl = document.getElementById('enquireModal');
-    if (modalEl && typeof bootstrap !== 'undefined' && bootstrap.Modal) {
-        const modal = new bootstrap.Modal(modalEl);
-        modal.show();
+    if (modalEl) {
+        modalEl._keepingProduct = !!productName;
+        if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+            const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+            modal.show();
+        }
     }
 }
 
 function initEnquiryFormHandler() {
+    const modalEl = document.getElementById('enquireModal');
+    if (modalEl) {
+        modalEl.addEventListener('show.bs.modal', function (e) {
+            const triggerBtn = e.relatedTarget;
+            if (!triggerBtn || !triggerBtn.hasAttribute('data-product')) {
+                if (!modalEl._keepingProduct) {
+                    const form = document.getElementById('modalEnquiryForm') || modalEl.querySelector('form');
+                    if (form) form.reset();
+                    const input = document.getElementById('modalProductInput');
+                    if (input) input.value = '';
+                }
+            }
+            delete modalEl._keepingProduct;
+        });
+    }
+
     const enquiryModalForm = document.querySelector('#enquireModal form');
     if (enquiryModalForm) {
         enquiryModalForm.addEventListener('submit', async function (e) {
@@ -673,13 +692,16 @@ function initEnquiryFormHandler() {
                 submitBtn.innerHTML = 'Connecting to WhatsApp...';
             }
 
-            const productName = document.getElementById('modalProductInput') ? document.getElementById('modalProductInput').value : 'General Enquiry';
-            const inputs = enquiryModalForm.querySelectorAll('input[type="text"]');
-            const nameInput = inputs[0] ? inputs[0].value.trim() : 'Customer';
-            const companyInput = inputs[1] ? inputs[1].value.trim() : '';
-            const phoneInput = enquiryModalForm.querySelector('input[type="tel"]') ? enquiryModalForm.querySelector('input[type="tel"]').value.trim() : '';
-            const emailInput = enquiryModalForm.querySelector('input[type="email"]') ? enquiryModalForm.querySelector('input[type="email"]').value.trim() : '';
-            const messageInput = enquiryModalForm.querySelector('textarea') ? enquiryModalForm.querySelector('textarea').value.trim() : '';
+            const productName = (document.getElementById('modalProductInput') && document.getElementById('modalProductInput').value.trim()) || 'General Enquiry';
+            const nameInput = (document.getElementById('modalCustomerName') && document.getElementById('modalCustomerName').value.trim()) 
+                || (enquiryModalForm.querySelector('input[type="text"]:not(#modalProductInput)') ? enquiryModalForm.querySelector('input[type="text"]:not(#modalProductInput)').value.trim() : 'Customer');
+            const companyInput = (document.getElementById('modalCompanyName') && document.getElementById('modalCompanyName').value.trim()) || '';
+            const phoneInput = (document.getElementById('modalPhoneNumber') && document.getElementById('modalPhoneNumber').value.trim()) 
+                || (enquiryModalForm.querySelector('input[type="tel"]') ? enquiryModalForm.querySelector('input[type="tel"]').value.trim() : '');
+            const emailInput = (document.getElementById('modalEmailAddress') && document.getElementById('modalEmailAddress').value.trim()) 
+                || (enquiryModalForm.querySelector('input[type="email"]') ? enquiryModalForm.querySelector('input[type="email"]').value.trim() : '');
+            const messageInput = (document.getElementById('modalMessageRequirements') && document.getElementById('modalMessageRequirements').value.trim()) 
+                || (enquiryModalForm.querySelector('textarea') ? enquiryModalForm.querySelector('textarea').value.trim() : '');
 
             let waMessage = `Hi Vishista Office Solutions,\n\nI am interested in your workspace products.\n\nProduct/Service: ${productName}\nName: ${nameInput}`;
             if (companyInput) waMessage += `\nCompany: ${companyInput}`;

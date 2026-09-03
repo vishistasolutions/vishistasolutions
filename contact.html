@@ -1655,31 +1655,31 @@
                     <form id="modalEnquiryForm" onsubmit="handleEnquirySubmit(event)">
                         <div class="mb-3">
                             <label class="form-label text-dark fw-bold mb-2" style="font-size: 1.25rem !important; color: #111111 !important;">Product / Service of Interest</label>
-                            <input type="text" id="modalProductInput" class="form-control" placeholder="ArchLabs Seating, Workstations, Turnkey Interiors, etc." style="border-radius: 6px; padding: 14px 16px; font-size: 1.15rem !important; font-weight: 600 !important; color: #111111 !important;">
+                            <input type="text" id="modalProductInput" class="form-control" style="border-radius: 6px; padding: 14px 16px; font-size: 1.15rem !important; font-weight: 600 !important; color: #111111 !important;">
                         </div>
                         <div class="row g-3 mb-3">
                             <div class="col-md-6">
                                 <label class="form-label text-dark fw-bold mb-2" style="font-size: 1.25rem !important; color: #111111 !important;">Your Name *</label>
-                                <input type="text" class="form-control" required placeholder="Full Name" style="border-radius: 6px; padding: 14px 16px; font-size: 1.15rem !important; font-weight: 600 !important; color: #111111 !important;">
+                                <input type="text" id="modalCustomerName" class="form-control" required style="border-radius: 6px; padding: 14px 16px; font-size: 1.15rem !important; font-weight: 600 !important; color: #111111 !important;">
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label text-dark fw-bold mb-2" style="font-size: 1.25rem !important; color: #111111 !important;">Company Name</label>
-                                <input type="text" class="form-control" placeholder="Organization" style="border-radius: 6px; padding: 14px 16px; font-size: 1.15rem !important; font-weight: 600 !important; color: #111111 !important;">
+                                <input type="text" id="modalCompanyName" class="form-control" style="border-radius: 6px; padding: 14px 16px; font-size: 1.15rem !important; font-weight: 600 !important; color: #111111 !important;">
                             </div>
                         </div>
                         <div class="row g-3 mb-3">
                             <div class="col-md-6">
                                 <label class="form-label text-dark fw-bold mb-2" style="font-size: 1.25rem !important; color: #111111 !important;">Phone Number *</label>
-                                <input type="tel" class="form-control" required placeholder="Mobile Number" style="border-radius: 6px; padding: 14px 16px; font-size: 1.15rem !important; font-weight: 600 !important; color: #111111 !important;">
+                                <input type="tel" id="modalPhoneNumber" class="form-control" required style="border-radius: 6px; padding: 14px 16px; font-size: 1.15rem !important; font-weight: 600 !important; color: #111111 !important;">
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label text-dark fw-bold mb-2" style="font-size: 1.25rem !important; color: #111111 !important;">Email Address *</label>
-                                <input type="email" class="form-control" required placeholder="name@company.com" style="border-radius: 6px; padding: 14px 16px; font-size: 1.15rem !important; font-weight: 600 !important; color: #111111 !important;">
+                                <input type="email" id="modalEmailAddress" class="form-control" required style="border-radius: 6px; padding: 14px 16px; font-size: 1.15rem !important; font-weight: 600 !important; color: #111111 !important;">
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label text-dark fw-bold mb-2" style="font-size: 1.25rem !important; color: #111111 !important;">Message / Project Requirements</label>
-                            <textarea class="form-control" rows="3" placeholder="Specify floor size, seating capacity, timeline, or location..." style="border-radius: 6px; padding: 14px 16px; font-size: 1.15rem !important; font-weight: 600 !important; color: #111111 !important;"></textarea>
+                            <textarea class="form-control" id="modalMessageRequirements" rows="3" style="border-radius: 6px; padding: 14px 16px; font-size: 1.15rem !important; font-weight: 600 !important; color: #111111 !important;"></textarea>
                         </div>
                         <div class="d-grid pt-2">
                             <button type="submit" class="btn btn-danger w-100 justify-content-center text-uppercase fw-black shadow-sm py-3" style="border-radius: 6px; background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%); border: none; font-size: 16px; letter-spacing: 0.5px;">Submit Enquiry</button>
