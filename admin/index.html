@@ -152,6 +152,9 @@
                 <a class="admin-nav-item" data-tab="subcategories">
                     <span>📑 Subcategories</span>
                 </a>
+                <a class="admin-nav-item" data-tab="archlabs">
+                    <span>🌟 Exclusive Collection</span>
+                </a>
                 <a class="admin-nav-item" data-tab="hero">
                     <span>🖼️ Hero Section</span>
                 </a>
@@ -363,6 +366,77 @@
                     </div>
                 </div>
 
+
+
+                <!-- 4B. ARCHLABS EXCLUSIVE COLLECTION MODULE -->
+                <div id="view-archlabs" class="tab-view-content d-none">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+                        <div>
+                            <h3 class="fw-bold text-dark mb-1">Exclusive Collection CMS (ArchLabs)</h3>
+                            <p class="text-muted fs-7 mb-0">Manage exclusive product series (Mesh, Leather, Training, etc.) and all product models within each series.</p>
+                        </div>
+                        <button class="btn btn-danger fw-bold text-uppercase fs-7 px-3 py-2" onclick="openAddArchlabsSeriesModal()">+ Add Series</button>
+                    </div>
+
+                    <!-- Series List -->
+                    <div class="admin-card mb-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h5 class="fw-bold text-dark mb-0">Series <span id="archSeriesCountBadge" class="badge bg-danger-subtle text-danger border fw-bold ms-2">0 Series</span></h5>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="admin-table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Series Name</th>
+                                        <th>Badge Text</th>
+                                        <th>Description</th>
+                                        <th>Models</th>
+                                        <th>Order</th>
+                                        <th>Visibility</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="archSeriesTableBody">
+                                    <!-- Rendered dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Products in Selected Series -->
+                    <div class="admin-card">
+                        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+                            <div>
+                                <h5 class="fw-bold text-dark mb-0">Catalogue Products <span id="archProductsCountBadge" class="badge bg-primary-subtle text-primary border fw-bold ms-2">0 Products</span></h5>
+                                <small class="text-muted">Filter by series to see and manage its products.</small>
+                            </div>
+                            <div class="d-flex gap-2 flex-wrap align-items-center">
+                                <select id="archSeriesFilter" class="form-select form-select-sm" style="min-width:200px;" onchange="renderArchProductsTable()">
+                                    <option value="">All Series</option>
+                                </select>
+                                <button class="btn btn-outline-danger fw-bold text-uppercase fs-7 px-3 py-1" onclick="openAddArchlabsProductModal()">+ Add Product</button>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="admin-table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Product Name</th>
+                                        <th>Series</th>
+                                        <th>Badge</th>
+                                        <th>Order</th>
+                                        <th>Visible</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="archProductsTableBody">
+                                    <!-- Rendered dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 5. HERO SECTION MODULE -->
@@ -596,6 +670,119 @@
         </div>
     </div>
 
+    <!-- ARCHLABS SERIES MODAL -->
+    <div class="modal fade" id="archSeriesModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h5 id="archSeriesModalTitle" class="modal-title fw-bold">Add Series</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="archSeriesForm" onsubmit="saveArchSeriesForm(event)">
+                    <div class="modal-body p-4">
+                        <input type="hidden" id="archSeriesIdInput">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold fs-7">Series Name *</label>
+                            <input type="text" id="archSeriesNameInput" class="form-control" required placeholder="e.g. Mesh Series">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold fs-7">Badge Text</label>
+                            <input type="text" id="archSeriesBadgeInput" class="form-control" placeholder="e.g. 30 Line-Wise Models">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold fs-7">Description</label>
+                            <input type="text" id="archSeriesDescInput" class="form-control" placeholder="e.g. Engineered for Movement & All-Day Ergonomic Focus">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold fs-7">Enquiry Button Label</label>
+                            <input type="text" id="archSeriesEnquiryInput" class="form-control" placeholder="e.g. Enquire for Mesh Series">
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold fs-7">Display Order</label>
+                                <input type="number" id="archSeriesOrderInput" class="form-control" value="0">
+                            </div>
+                            <div class="col-md-6 d-flex align-items-end">
+                                <div class="form-check form-switch mb-1">
+                                    <input class="form-check-input" type="checkbox" id="archSeriesVisibleCheck" checked>
+                                    <label class="form-check-label fw-semibold fs-7" for="archSeriesVisibleCheck">Visible</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top">
+                        <button type="button" class="btn btn-light fw-semibold" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger fw-bold text-uppercase px-4">Save Series &rarr;</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ARCHLABS PRODUCT MODAL -->
+    <div class="modal fade" id="archProductModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h5 id="archProductModalTitle" class="modal-title fw-bold">Add Catalogue Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="archProductForm" onsubmit="saveArchProductForm(event)">
+                    <div class="modal-body p-4">
+                        <input type="hidden" id="archProductIdInput">
+                        <div class="row g-3">
+                            <div class="col-md-8">
+                                <label class="form-label fw-semibold fs-7">Product Name *</label>
+                                <input type="text" id="archProductNameInput" class="form-control" required placeholder="e.g. Veloz">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold fs-7">Series *</label>
+                                <select id="archProductSeriesSelect" class="form-select" required>
+                                    <!-- Populated dynamically -->
+                                </select>
+                            </div>
+                            <div class="col-md-8">
+                                <label class="form-label fw-semibold fs-7">Description</label>
+                                <textarea id="archProductDescInput" class="form-control" rows="3" placeholder="e.g. Synchro-tilt with multi-position lock, 3D armrest..."></textarea>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold fs-7">Badge Label</label>
+                                <input type="text" id="archProductBadgeInput" class="form-control" value="ArchLabs Seating" placeholder="ArchLabs Seating">
+                                <label class="form-label fw-semibold fs-7 mt-2">Display Order</label>
+                                <input type="number" id="archProductOrderInput" class="form-control" value="0">
+                            </div>
+                            <!-- Image Upload -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold fs-7">Product Image *</label>
+                                <div class="upload-dropzone" onclick="document.getElementById('archProductFileInput').click()">
+                                    <div class="text-danger fs-3 mb-1">🖼️</div>
+                                    <div class="fw-bold text-dark fs-7">Click to Upload Image</div>
+                                </div>
+                                <input type="file" id="archProductFileInput" class="d-none" accept="image/*" onchange="handleArchProductImageUpload(this)">
+                                <div id="archProductUploadProgress" class="progress mt-2 d-none" style="height:10px;">
+                                    <div id="archProductProgressBar" class="progress-bar bg-danger" style="width:0%"></div>
+                                </div>
+                                <input type="hidden" id="archProductImageUrl">
+                                <div id="archProductImagePreviewContainer" class="mt-2 text-center d-none">
+                                    <img id="archProductImagePreview" src="" alt="Preview" style="max-height:120px; border-radius:8px; border:1px solid #e2e8f0; padding:4px;">
+                                </div>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-center">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="archProductVisibleCheck" checked>
+                                    <label class="form-check-label fw-semibold fs-7" for="archProductVisibleCheck">Visible on website</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top">
+                        <button type="button" class="btn btn-light fw-semibold" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger fw-bold text-uppercase px-4">Save Product &rarr;</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Bootstrap 5 Bundle JS -->

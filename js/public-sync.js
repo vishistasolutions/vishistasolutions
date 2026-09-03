@@ -13,13 +13,12 @@ window.addEventListener('DOMContentLoaded', function () {
     initPublicSync();
     initEnquiryFormHandler();
 
-    // Listen for storage changes across tabs (Instant sync when Admin Panel updates)
-    window.addEventListener('storage', function () {
-        initPublicSync();
+    // Instant sync when Admin Panel updates data in another tab
+    window.addEventListener('storage', function (e) {
+        if (e.key === 'vishista_cms_updated' || !e.key) {
+            initPublicSync();
+        }
     });
-
-    // Auto-refresh public view periodically to fetch fresh database updates
-    setInterval(initPublicSync, 4000);
 });
 
 async function initPublicSync() {
@@ -31,7 +30,8 @@ async function initPublicSync() {
             syncAboutSection(),
             syncFooterSection(),
             syncCategoriesSection(),
-            syncProductPages()
+            syncProductPages(),
+            syncArchlabsCatalogue()
         ]);
     } catch (e) {
         console.warn('CMS Public Sync notice:', e);
@@ -83,10 +83,14 @@ async function syncHeroSection() {
         if (slideImages.length === 0 && hero.bg_image_url) {
             slideImages = [hero.bg_image_url];
         }
+        // No fallback: if no images configured, leave hero background empty
         if (slideImages.length === 0) {
-            slideImages = [
-                'https://res.cloudinary.com/iw4ntmv5/image/upload/v1788282238/lsceaw7eu2jmpvgv4le1.jpg'
-            ];
+            wrapper.innerHTML = '<div class="hero-bg-overlay"></div>';
+            if (window._heroSliderInterval) {
+                clearInterval(window._heroSliderInterval);
+                window._heroSliderInterval = null;
+            }
+            return;
         }
 
         const currentSerialized = wrapper.getAttribute('data-current-slides') || '';
@@ -721,3 +725,77 @@ function initEnquiryFormHandler() {
 window.openProductDetailModal = openProductDetailModal;
 window.openEnquiryModal = openEnquiryModal;
 window.initPublicSync = initPublicSync;
+
+// ArchLabs Catalogue Dynamic Sync
+async function syncArchlabsCatalogue() {
+    const container = document.getElementById('archlabs-cms-container');
+    if (!container) return;
+
+    const seriesList = (await CMSDataStore.get('archlabs_series')) || [];
+    const productsList = (await CMSDataStore.get('archlabs_products')) || [];
+
+    // If no CMS data, leave static HTML visible as fallback
+    if (seriesList.length === 0 && productsList.length === 0) return;
+
+    // Update filter buttons in the modal
+    const filterContainer = document.getElementById('archlabs-filter-buttons');
+    if (filterContainer) {
+        let fHtml = '<div class="col-12 mb-1"><button type="button" class="btn btn-danger w-100 text-start fw-bold rounded-3" onclick="filterExclusiveSeries(&quot;all&quot;)" data-bs-dismiss="modal" style="background:linear-gradient(135deg,#d32f2f 0%,#b71c1c 100%);border:none;">&#10003; Show All Series (Complete Showcase)</button></div>';
+        seriesList.filter(s => s.is_visible !== false).forEach(series => {
+            const prods = productsList.filter(p => p.series_slug === series.slug && p.is_visible !== false);
+            const label = series.name + (prods.length ? ' (' + prods.length + ' Models)' : '');
+            fHtml += '<div class="col-md-6"><button type="button" class="btn btn-outline-dark w-100 text-start fw-bold rounded-3 series-filter-btn" onclick="filterExclusiveSeries(&quot;' + series.slug + '&quot;)" data-bs-dismiss="modal">&bull; ' + label + '</button></div>';
+        });
+        filterContainer.innerHTML = fHtml;
+    }
+
+    const visibleSeries = seriesList.filter(s => s.is_visible !== false);
+    if (visibleSeries.length === 0) {
+        container.innerHTML = '<p class="text-center text-muted py-5">No catalogue items published yet.</p>';
+        container.style.display = 'block';
+        const sc = document.getElementById('archlabs-static-content');
+        if (sc) sc.style.display = 'none';
+        return;
+    }
+
+    let html = '';
+    visibleSeries.sort((a, b) => (a.display_order || 0) - (b.display_order || 0)).forEach(series => {
+        const prods = productsList
+            .filter(p => (p.series_slug === series.slug || p.series_id === series.id) && p.is_visible !== false)
+            .sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
+
+        let cardsHtml = '';
+        prods.forEach(prod => {
+            const imgSrc = prod.image_url || 'images/logo/logo-symbol.png';
+            const badge = prod.badge_label || 'ArchLabs Seating';
+            const safeName = (prod.name || '').replace(/'/g, "\\'");
+            cardsHtml += '<div class="col-lg-4 col-md-6"><div class="card border h-100 shadow-sm rounded-3 overflow-hidden product-card-hover">' +
+                '<img src="' + optimizeCloudinaryUrl(imgSrc, 600) + '" alt="' + prod.name + '" class="card-img-top" style="background:#ffffff;" onerror="this.src=\'images/logo/logo-symbol.png\'">' +
+                '<div class="card-body p-4 d-flex flex-column">' +
+                '<div class="d-flex justify-content-between align-items-center mb-2">' +
+                '<h4 class="fw-bold text-dark mb-0">' + prod.name + '</h4>' +
+                '<span class="badge bg-light text-danger border fs-7">' + badge + '</span></div>' +
+                '<p class="text-secondary fs-7 mb-3 flex-grow-1">' + (prod.description || '') + '</p>' +
+                '<div class="d-grid gap-2"><button type="button" class="btn btn-danger text-uppercase fw-bold fs-7 py-2" onclick="openEnquiryModal(\'' + safeName + '\')">Enquire Now</button></div>' +
+                '</div></div></div>';
+        });
+
+        const enquiryLabel = series.enquiry_label || ('Enquire for ' + series.name);
+        const safeEnq = enquiryLabel.replace(/'/g, "\\'");
+        const badgeHtml = series.badge_text ? '<span class="badge bg-danger text-uppercase px-2 py-1 fs-7 mb-1">' + series.badge_text + '</span>' : '';
+        const descHtml = series.description ? '<p class="text-muted fs-7 mb-0">' + series.description + '</p>' : '';
+        const bodyHtml = prods.length > 0 ? '<div class="row g-4">' + cardsHtml + '</div>' : '<p class="text-muted fst-italic">No products in this series yet.</p>';
+
+        html += '<section id="' + series.slug + '" class="catalogue-series-section mb-5 pt-4" data-series-slug="' + series.slug + '">' +
+            '<div class="d-flex align-items-center justify-content-between mb-4 pb-2 border-bottom border-2 border-danger">' +
+            '<div>' + badgeHtml + '<h2 class="fw-bold text-dark mb-0">' + series.name + '</h2>' + descHtml + '</div>' +
+            '<button type="button" class="btn btn-danger btn-sm text-uppercase fw-bold" onclick="openEnquiryModal(\'' + safeEnq + '\')">' + enquiryLabel + '</button>' +
+            '</div>' + bodyHtml + '</section>';
+    });
+
+    container.innerHTML = html;
+    container.style.display = 'block';
+
+    const staticContent = document.getElementById('archlabs-static-content');
+    if (staticContent) staticContent.style.display = 'none';
+}

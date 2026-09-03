@@ -1074,13 +1074,7 @@
 <!-- Animated Hero Section -->
 <section class="hero-animated-section position-relative text-white overflow-hidden py-5 d-flex align-items-center" style="min-height: 88vh;">
     <!-- Animated Background Image Container with Auto Slider -->
-    <div class="hero-bg-animated-wrapper" data-current-slides="https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1600/v1788282238/lsceaw7eu2jmpvgv4le1.jpg|||https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1600/v1788282268/vpgzy3wrexsvhvuaiqtx.png|||https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1600/v1788282288/vnhxv4g70ojn8govnsjh.png|||https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1600/v1788282544/uux5ttejfjiskoxf8jrv.png|||https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1600/v1788282553/pkm4nubjbrqiclpdc3vv.png|||https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1600/v1788282648/wp4dicujraxmjaqsyvui.jpg">
-        <div class="hero-slide active" style="background-image: url('https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1600/v1788282238/lsceaw7eu2jmpvgv4le1.jpg'); background-size: cover; background-position: center center; background-repeat: no-repeat;"></div>
-        <div class="hero-slide" style="background-image: url('https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1600/v1788282268/vpgzy3wrexsvhvuaiqtx.png'); background-size: cover; background-position: center center; background-repeat: no-repeat;"></div>
-        <div class="hero-slide" style="background-image: url('https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1600/v1788282288/vnhxv4g70ojn8govnsjh.png'); background-size: cover; background-position: center center; background-repeat: no-repeat;"></div>
-        <div class="hero-slide" style="background-image: url('https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1600/v1788282544/uux5ttejfjiskoxf8jrv.png'); background-size: cover; background-position: center center; background-repeat: no-repeat;"></div>
-        <div class="hero-slide" style="background-image: url('https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1600/v1788282553/pkm4nubjbrqiclpdc3vv.png'); background-size: cover; background-position: center center; background-repeat: no-repeat;"></div>
-        <div class="hero-slide" style="background-image: url('https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1600/v1788282648/wp4dicujraxmjaqsyvui.jpg'); background-size: cover; background-position: center center; background-repeat: no-repeat;"></div>
+    <div class="hero-bg-animated-wrapper" data-current-slides="">
         <div class="hero-bg-overlay"></div>
     </div>
     <script>

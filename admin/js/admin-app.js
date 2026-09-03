@@ -308,6 +308,7 @@ function switchTab(tabName) {
     if (tabName === 'products') loadProductsModule();
     if (tabName === 'categories') loadCategoriesModule();
     if (tabName === 'subcategories') loadSubcategoriesModule();
+    if (tabName === 'archlabs') loadArchlabsModule();
     if (tabName === 'hero') loadHeroModule();
     if (tabName === 'about') loadAboutModule();
     if (tabName === 'footer') loadFooterModule();
@@ -1433,11 +1434,11 @@ window.saveCategoryForm = saveCategoryForm;
 window.toggleCategoryVisibility = toggleCategoryVisibility;
 window.toggleCategoryPublished = toggleCategoryPublished;
 window.deleteCategory = deleteCategory;
-window.openAddProjectModal = openAddProjectModal;
-window.editProjectModal = editProjectModal;
-window.saveProjectForm = saveProjectForm;
-window.toggleProjectVisibility = toggleProjectVisibility;
-window.deleteProject = deleteProject;
+if (typeof openAddProjectModal !== 'undefined') window.openAddProjectModal = openAddProjectModal;
+if (typeof editProjectModal !== 'undefined') window.editProjectModal = editProjectModal;
+if (typeof saveProjectForm !== 'undefined') window.saveProjectForm = saveProjectForm;
+if (typeof toggleProjectVisibility !== 'undefined') window.toggleProjectVisibility = toggleProjectVisibility;
+if (typeof deleteProject !== 'undefined') window.deleteProject = deleteProject;
 window.saveHeroCMS = saveHeroCMS;
 window.saveAboutCMS = saveAboutCMS;
 window.saveFooterCMS = saveFooterCMS;
@@ -1457,3 +1458,341 @@ window.removeAdditionalProductImage = removeAdditionalProductImage;
 window.toggleMobileSidebar = toggleMobileSidebar;
 
 
+// =============================================
+// 10. Module: ArchLabs Catalogue CMS
+// =============================================
+
+let _cachedArchSeries = [];
+let _cachedArchProducts = [];
+
+async function loadArchlabsModule() {
+    _cachedArchSeries = (await CMSDataStore.get('archlabs_series')) || [];
+    _cachedArchProducts = (await CMSDataStore.get('archlabs_products')) || [];
+    renderArchSeriesTable();
+    populateArchSeriesFilter();
+    renderArchProductsTable();
+}
+
+function renderArchSeriesTable() {
+    const tbody = document.getElementById('archSeriesTableBody');
+    const badge = document.getElementById('archSeriesCountBadge');
+    if (!tbody) return;
+    if (badge) badge.textContent = `${_cachedArchSeries.length} Series`;
+
+    if (_cachedArchSeries.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted">No series yet. Click "+ Add Series" to create one.</td></tr>`;
+        return;
+    }
+
+    let html = '';
+    _cachedArchSeries.forEach((series, idx) => {
+        const productCount = _cachedArchProducts.filter(p => p.series_slug === series.slug || p.series_id === series.id).length;
+        const isVisible = series.is_visible !== false;
+        html += `
+        <tr>
+            <td class="fw-bold text-dark">${series.name}</td>
+            <td><span class="badge bg-danger-subtle text-danger border px-2 py-1">${series.badge_text || '-'}</span></td>
+            <td class="text-muted fs-7">${series.description || '-'}</td>
+            <td><span class="badge bg-primary-subtle text-primary border font-monospace px-2 py-1">${productCount} Models</span></td>
+            <td>${series.display_order || idx + 1}</td>
+            <td><span class="${isVisible ? 'badge bg-success-subtle text-success border border-success' : 'badge bg-danger-subtle text-danger border border-danger'}">${isVisible ? 'VISIBLE' : 'HIDDEN'}</span></td>
+            <td>
+                <div class="action-btn-group d-flex gap-1">
+                    <button class="btn btn-sm btn-primary px-2 py-1 fs-7" onclick="editArchSeriesModal(${idx})">Edit</button>
+                    <button class="btn btn-sm btn-outline-danger px-2 py-1 fs-7" onclick="deleteArchSeries(${idx})">Delete</button>
+                </div>
+            </td>
+        </tr>`;
+    });
+    tbody.innerHTML = html;
+}
+
+function populateArchSeriesFilter() {
+    const sel = document.getElementById('archSeriesFilter');
+    if (!sel) return;
+    const cur = sel.value;
+    let html = '<option value="">All Series</option>';
+    _cachedArchSeries.forEach(s => {
+        html += `<option value="${s.slug}" ${cur === s.slug ? 'selected' : ''}>${s.name}</option>`;
+    });
+    sel.innerHTML = html;
+}
+
+function renderArchProductsTable() {
+    const tbody = document.getElementById('archProductsTableBody');
+    const badge = document.getElementById('archProductsCountBadge');
+    if (!tbody) return;
+
+    const filterSel = document.getElementById('archSeriesFilter');
+    const filterVal = filterSel ? filterSel.value : '';
+
+    let list = _cachedArchProducts;
+    if (filterVal) {
+        list = list.filter(p => p.series_slug === filterVal);
+    }
+
+    if (badge) badge.textContent = `${list.length} Products`;
+
+    if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted">No products found${filterVal ? ' for this series' : ''}. Click "+ Add Product" to create one.</td></tr>`;
+        return;
+    }
+
+    let html = '';
+    list.forEach((prod) => {
+        const realIdx = _cachedArchProducts.indexOf(prod);
+        const seriesName = (_cachedArchSeries.find(s => s.slug === prod.series_slug || s.id === prod.series_id) || {}).name || prod.series_slug || '-';
+        const isVisible = prod.is_visible !== false;
+        html += `
+        <tr>
+            <td><img src="${prod.image_url || 'images/logo/logo-symbol.png'}" alt="${prod.name}" style="width:48px;height:48px;object-fit:contain;border-radius:6px;background:#fff;" onerror="this.src='images/logo/logo-symbol.png'"></td>
+            <td class="fw-bold text-dark">${prod.name}</td>
+            <td><span class="badge bg-light text-dark border">${seriesName}</span></td>
+            <td class="fs-7 text-muted">${prod.badge_label || 'ArchLabs Seating'}</td>
+            <td>${prod.display_order || realIdx + 1}</td>
+            <td><span class="${isVisible ? 'badge bg-success-subtle text-success border border-success' : 'badge bg-danger-subtle text-danger border border-danger'}">${isVisible ? 'VISIBLE' : 'HIDDEN'}</span></td>
+            <td>
+                <div class="action-btn-group d-flex gap-1">
+                    <button class="btn btn-sm btn-primary px-2 py-1 fs-7" onclick="editArchProductModal(${realIdx})">Edit</button>
+                    <button class="btn btn-sm ${isVisible ? 'btn-outline-secondary' : 'btn-outline-success'} px-2 py-1 fs-7" onclick="toggleArchProductVisibility(${realIdx})">${isVisible ? 'Hide' : 'Show'}</button>
+                    <button class="btn btn-sm btn-outline-danger px-2 py-1 fs-7" onclick="deleteArchProduct(${realIdx})">Delete</button>
+                </div>
+            </td>
+        </tr>`;
+    });
+    tbody.innerHTML = html;
+}
+
+// -- Series Modal --
+function openAddArchlabsSeriesModal() {
+    document.getElementById('archSeriesModalTitle').textContent = 'Add New Series';
+    document.getElementById('archSeriesIdInput').value = '';
+    document.getElementById('archSeriesNameInput').value = '';
+    document.getElementById('archSeriesBadgeInput').value = '';
+    document.getElementById('archSeriesDescInput').value = '';
+    document.getElementById('archSeriesEnquiryInput').value = '';
+    document.getElementById('archSeriesOrderInput').value = '0';
+    document.getElementById('archSeriesVisibleCheck').checked = true;
+    new bootstrap.Modal(document.getElementById('archSeriesModal')).show();
+}
+
+function editArchSeriesModal(idx) {
+    const s = _cachedArchSeries[idx];
+    if (!s) return;
+    document.getElementById('archSeriesModalTitle').textContent = 'Edit Series';
+    document.getElementById('archSeriesIdInput').value = idx;
+    document.getElementById('archSeriesNameInput').value = s.name || '';
+    document.getElementById('archSeriesBadgeInput').value = s.badge_text || '';
+    document.getElementById('archSeriesDescInput').value = s.description || '';
+    document.getElementById('archSeriesEnquiryInput').value = s.enquiry_label || '';
+    document.getElementById('archSeriesOrderInput').value = s.display_order || 0;
+    document.getElementById('archSeriesVisibleCheck').checked = s.is_visible !== false;
+    new bootstrap.Modal(document.getElementById('archSeriesModal')).show();
+}
+
+async function saveArchSeriesForm(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    if (btn) { btn.disabled = true; btn.innerHTML = 'Saving...'; }
+
+    const idxVal = document.getElementById('archSeriesIdInput').value;
+    const name = document.getElementById('archSeriesNameInput').value.trim();
+    const badge_text = document.getElementById('archSeriesBadgeInput').value.trim();
+    const description = document.getElementById('archSeriesDescInput').value.trim();
+    const enquiry_label = document.getElementById('archSeriesEnquiryInput').value.trim();
+    const display_order = parseInt(document.getElementById('archSeriesOrderInput').value || '0', 10);
+    const is_visible = document.getElementById('archSeriesVisibleCheck').checked;
+    const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+    if (!name) {
+        alert('Please enter a series name.');
+        if (btn) { btn.disabled = false; btn.innerHTML = 'Save Series &rarr;'; }
+        return;
+    }
+
+    try {
+        let payload = { name, slug, badge_text, description, enquiry_label, display_order, is_visible };
+        if (idxVal !== '' && !isNaN(idxVal) && _cachedArchSeries[idxVal]) {
+            const existing = _cachedArchSeries[idxVal];
+            payload = { ...existing, ...payload, updated_at: new Date().toISOString() };
+            await CMSDataStore.updateRecord('archlabs_series', existing.id, payload);
+        } else {
+            payload.created_at = new Date().toISOString();
+            await CMSDataStore.insertRecord('archlabs_series', payload);
+        }
+        alert('\u2713 Series saved successfully!');
+        bootstrap.Modal.getInstance(document.getElementById('archSeriesModal')).hide();
+        await loadArchlabsModule();
+    } catch (err) {
+        alert(`\u274C Series Save Failed: ${err.message}`);
+    } finally {
+        if (btn) { btn.disabled = false; btn.innerHTML = 'Save Series &rarr;'; }
+    }
+}
+
+async function deleteArchSeries(idx) {
+    const s = _cachedArchSeries[idx];
+    if (!s) return;
+    const prodCount = _cachedArchProducts.filter(p => p.series_slug === s.slug || p.series_id === s.id).length;
+    const msg = prodCount > 0
+        ? `Warning: Deleting series "${s.name}" will also delete its ${prodCount} product(s). Continue?`
+        : `Are you sure you want to delete series "${s.name}"?`;
+    if (!confirm(msg)) return;
+    try {
+        await CMSDataStore.deleteRecord('archlabs_series', s.id);
+        await loadArchlabsModule();
+    } catch (err) {
+        alert(`Series deletion failed: ${err.message}`);
+    }
+}
+
+// -- Product Modal --
+async function populateArchSeriesDropdown(selectEl, selectedSlug) {
+    if (!selectEl) return;
+    let html = '';
+    _cachedArchSeries.forEach(s => {
+        html += `<option value="${s.slug}" ${selectedSlug === s.slug ? 'selected' : ''}>${s.name}</option>`;
+    });
+    selectEl.innerHTML = html || '<option value="">No series yet — create one first</option>';
+}
+
+async function openAddArchlabsProductModal() {
+    if (_cachedArchSeries.length === 0) {
+        alert('Please create at least one series before adding products.');
+        return;
+    }
+    document.getElementById('archProductModalTitle').textContent = 'Add New Catalogue Product';
+    document.getElementById('archProductIdInput').value = '';
+    document.getElementById('archProductNameInput').value = '';
+    document.getElementById('archProductDescInput').value = '';
+    document.getElementById('archProductBadgeInput').value = 'ArchLabs Seating';
+    document.getElementById('archProductOrderInput').value = '0';
+    document.getElementById('archProductVisibleCheck').checked = true;
+    document.getElementById('archProductImageUrl').value = '';
+    document.getElementById('archProductImagePreviewContainer').classList.add('d-none');
+    document.getElementById('archProductImagePreview').src = '';
+    await populateArchSeriesDropdown(document.getElementById('archProductSeriesSelect'), _cachedArchSeries[0]?.slug);
+    new bootstrap.Modal(document.getElementById('archProductModal')).show();
+}
+
+async function editArchProductModal(idx) {
+    const p = _cachedArchProducts[idx];
+    if (!p) return;
+    document.getElementById('archProductModalTitle').textContent = 'Edit Catalogue Product';
+    document.getElementById('archProductIdInput').value = idx;
+    document.getElementById('archProductNameInput').value = p.name || '';
+    document.getElementById('archProductDescInput').value = p.description || '';
+    document.getElementById('archProductBadgeInput').value = p.badge_label || 'ArchLabs Seating';
+    document.getElementById('archProductOrderInput').value = p.display_order || 0;
+    document.getElementById('archProductVisibleCheck').checked = p.is_visible !== false;
+    document.getElementById('archProductImageUrl').value = p.image_url || '';
+    if (p.image_url) {
+        document.getElementById('archProductImagePreview').src = p.image_url;
+        document.getElementById('archProductImagePreviewContainer').classList.remove('d-none');
+    } else {
+        document.getElementById('archProductImagePreviewContainer').classList.add('d-none');
+    }
+    await populateArchSeriesDropdown(document.getElementById('archProductSeriesSelect'), p.series_slug);
+    new bootstrap.Modal(document.getElementById('archProductModal')).show();
+}
+
+async function handleArchProductImageUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const progressDiv = document.getElementById('archProductUploadProgress');
+    const progressBar = document.getElementById('archProductProgressBar');
+    if (progressDiv) progressDiv.classList.remove('d-none');
+    try {
+        const result = await uploadToCloudinary(file, (pct) => { if (progressBar) progressBar.style.width = `${pct}%`; });
+        document.getElementById('archProductImageUrl').value = result.url;
+        document.getElementById('archProductImagePreview').src = result.url;
+        document.getElementById('archProductImagePreviewContainer').classList.remove('d-none');
+        alert('\u2713 Image uploaded successfully!');
+    } catch (err) {
+        alert(`Image upload failed: ${err.message}`);
+    } finally {
+        if (progressDiv) progressDiv.classList.add('d-none');
+    }
+}
+
+async function saveArchProductForm(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    if (btn) { btn.disabled = true; btn.innerHTML = 'Saving...'; }
+
+    const idxVal = document.getElementById('archProductIdInput').value;
+    const name = document.getElementById('archProductNameInput').value.trim();
+    const series_slug = document.getElementById('archProductSeriesSelect').value;
+    const description = document.getElementById('archProductDescInput').value.trim();
+    const badge_label = document.getElementById('archProductBadgeInput').value.trim() || 'ArchLabs Seating';
+    const display_order = parseInt(document.getElementById('archProductOrderInput').value || '0', 10);
+    const is_visible = document.getElementById('archProductVisibleCheck').checked;
+    const image_url = document.getElementById('archProductImageUrl').value.trim() || '';
+    const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+    if (!name || !series_slug) {
+        alert('Please enter a product name and select a series.');
+        if (btn) { btn.disabled = false; btn.innerHTML = 'Save Product &rarr;'; }
+        return;
+    }
+
+    const series = _cachedArchSeries.find(s => s.slug === series_slug);
+    const series_id = series ? series.id : null;
+
+    try {
+        let payload = { name, slug, series_id, series_slug, description, badge_label, display_order, is_visible, image_url };
+        if (idxVal !== '' && !isNaN(idxVal) && _cachedArchProducts[idxVal]) {
+            const existing = _cachedArchProducts[idxVal];
+            payload = { ...existing, ...payload, updated_at: new Date().toISOString() };
+            await CMSDataStore.updateRecord('archlabs_products', existing.id, payload);
+        } else {
+            payload.created_at = new Date().toISOString();
+            await CMSDataStore.insertRecord('archlabs_products', payload);
+        }
+        alert('\u2713 Catalogue product saved successfully!');
+        bootstrap.Modal.getInstance(document.getElementById('archProductModal')).hide();
+        await loadArchlabsModule();
+    } catch (err) {
+        alert(`\u274C Product Save Failed: ${err.message}`);
+    } finally {
+        if (btn) { btn.disabled = false; btn.innerHTML = 'Save Product &rarr;'; }
+    }
+}
+
+async function toggleArchProductVisibility(idx) {
+    try {
+        const p = _cachedArchProducts[idx];
+        if (!p) return;
+        const newVis = p.is_visible === false ? true : false;
+        await CMSDataStore.updateRecord('archlabs_products', p.id, { is_visible: newVis });
+        await loadArchlabsModule();
+    } catch (err) {
+        alert(`Visibility toggle failed: ${err.message}`);
+    }
+}
+
+async function deleteArchProduct(idx) {
+    const p = _cachedArchProducts[idx];
+    if (!p) return;
+    if (!confirm(`Are you sure you want to delete catalogue product "${p.name}"?`)) return;
+    try {
+        await CMSDataStore.deleteRecord('archlabs_products', p.id);
+        await loadArchlabsModule();
+    } catch (err) {
+        alert(`Product deletion failed: ${err.message}`);
+    }
+}
+
+// Export ArchLabs functions
+window.loadArchlabsModule = loadArchlabsModule;
+window.renderArchProductsTable = renderArchProductsTable;
+window.openAddArchlabsSeriesModal = openAddArchlabsSeriesModal;
+window.editArchSeriesModal = editArchSeriesModal;
+window.saveArchSeriesForm = saveArchSeriesForm;
+window.deleteArchSeries = deleteArchSeries;
+window.openAddArchlabsProductModal = openAddArchlabsProductModal;
+window.editArchProductModal = editArchProductModal;
+window.handleArchProductImageUpload = handleArchProductImageUpload;
+window.saveArchProductForm = saveArchProductForm;
+window.toggleArchProductVisibility = toggleArchProductVisibility;
+window.deleteArchProduct = deleteArchProduct;

@@ -327,3 +327,52 @@ BEGIN
 
 
 END $$;
+
+-- 14B. ARCHLABS CATALOGUE TABLES
+
+CREATE TABLE IF NOT EXISTS public.archlabs_series (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name TEXT NOT NULL,
+    slug TEXT NOT NULL UNIQUE,
+    badge_text TEXT,
+    description TEXT,
+    enquiry_label TEXT,
+    display_order INT DEFAULT 0,
+    is_visible BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS public.archlabs_products (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    series_id UUID REFERENCES public.archlabs_series(id) ON DELETE CASCADE,
+    series_slug TEXT NOT NULL,
+    name TEXT NOT NULL,
+    slug TEXT NOT NULL,
+    description TEXT,
+    image_url TEXT,
+    badge_label TEXT DEFAULT 'ArchLabs Seating',
+    display_order INT DEFAULT 0,
+    is_visible BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE public.archlabs_series ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.archlabs_products ENABLE ROW LEVEL SECURITY;
+
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Allow public read archlabs_series') THEN
+        CREATE POLICY "Allow public read archlabs_series" ON public.archlabs_series FOR SELECT USING (true);
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Allow all access archlabs_series') THEN
+        CREATE POLICY "Allow all access archlabs_series" ON public.archlabs_series FOR ALL USING (true) WITH CHECK (true);
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Allow public read archlabs_products') THEN
+        CREATE POLICY "Allow public read archlabs_products" ON public.archlabs_products FOR SELECT USING (true);
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Allow all access archlabs_products') THEN
+        CREATE POLICY "Allow all access archlabs_products" ON public.archlabs_products FOR ALL USING (true) WITH CHECK (true);
+    END IF;
+END $$;

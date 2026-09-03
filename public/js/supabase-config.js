@@ -10,6 +10,674 @@ const CLOUDINARY_UPLOAD_PRESET = 'ml_default';
 
 // Embedded Seed Data Dataset for Fail-Safe CMS Resolution
 const VISHISTA_SEED_DATA = {
+  "archlabs_series": [
+  {
+    "name": "Mesh Series",
+    "slug": "mesh-series",
+    "badge_text": "30 Line-Wise Models",
+    "description": "Engineered for Movement &amp; All-Day Ergonomic Focus",
+    "enquiry_label": "ArchLabs Mesh Series Chairs",
+    "display_order": 1,
+    "is_visible": true
+  },
+  {
+    "name": "Leather Series",
+    "slug": "leather-series",
+    "badge_text": "5 Executive Models",
+    "description": "Luxurious Diamond Stitching, Refined Details &amp; Command Posture",
+    "enquiry_label": "ArchLabs Leather Series",
+    "display_order": 2,
+    "is_visible": true
+  },
+  {
+    "name": "Training Series",
+    "slug": "training-series",
+    "badge_text": "Flexible Learning Solutions",
+    "description": "Versatile Training Chairs with Writing Pads, Storage &amp; Twin-Back Models",
+    "enquiry_label": "ArchLabs Training Series",
+    "display_order": 3,
+    "is_visible": true
+  },
+  {
+    "name": "Metro Linea Public Seating",
+    "slug": "metro-linea",
+    "badge_text": "Heavy-Duty Public Infrastructure",
+    "description": "Designed for Airports, Railway Terminals, Hospitals &amp; Banks",
+    "enquiry_label": "Metro Linea Public Seating",
+    "display_order": 4,
+    "is_visible": true
+  },
+  {
+    "name": "Cafeteria Series",
+    "slug": "cafeteria-series",
+    "badge_text": "7 Contemporary Models",
+    "description": "Vibrant Dining, Pantry &amp; Hospitality Seating Solutions",
+    "enquiry_label": "Cafeteria Series Chairs",
+    "display_order": 5,
+    "is_visible": true
+  },
+  {
+    "name": "Workstations - Height Adjustable Series",
+    "slug": "workstations-ha",
+    "badge_text": "Motorized Ergonomic Desks",
+    "description": "Dual-motor sit-stand desks engineered for active wellness",
+    "enquiry_label": "Height Adjustable Series Workstations",
+    "display_order": 6,
+    "is_visible": true
+  },
+  {
+    "name": "Workstations - Desking Series",
+    "slug": "workstations-ds",
+    "badge_text": "Open-Plan Desking",
+    "description": "Linear and back-to-back desking systems with clean metal profiles",
+    "enquiry_label": "Desking Series Workstations",
+    "display_order": 7,
+    "is_visible": true
+  },
+  {
+    "name": "Workstations - Panel Series",
+    "slug": "workstations-panel",
+    "badge_text": "Acoustic Partition Systems",
+    "description": "Acoustic panel-based partitions providing privacy and wire raceways",
+    "enquiry_label": "Panel Series Workstations",
+    "display_order": 8,
+    "is_visible": true
+  },
+  {
+    "name": "Tables - Cabin Tables",
+    "slug": "tables-cabin",
+    "badge_text": "Executive Cabin Desks",
+    "description": "Director &amp; managerial executive table suites",
+    "enquiry_label": "Cabin Tables Catalogue",
+    "display_order": 9,
+    "is_visible": true
+  },
+  {
+    "name": "Tables - Meeting Tables",
+    "slug": "tables-meeting",
+    "badge_text": "Boardroom Conference Tables",
+    "description": "Pop-up connectivity boxes and cable troughs",
+    "enquiry_label": "Meeting Tables Catalogue",
+    "display_order": 10,
+    "is_visible": true
+  },
+  {
+    "name": "Storage - Prelam Storage Systems",
+    "slug": "storage-prelam",
+    "badge_text": "Office Storage Cabinets",
+    "description": "Laminate wood credenzas, pedestals, and tall storage",
+    "enquiry_label": "Prelam Storage Systems",
+    "display_order": 11,
+    "is_visible": true
+  },
+  {
+    "name": "Acoustic Work Pods",
+    "slug": "pods",
+    "badge_text": "Sound Isolation Booths",
+    "description": "Private telephone pods &amp; acoustic meeting booths",
+    "enquiry_label": "Acoustic Pods Catalogue",
+    "display_order": 12,
+    "is_visible": true
+  },
+  {
+    "name": "Interface Carpet Tiles",
+    "slug": "carpets",
+    "badge_text": "Acoustic Flooring",
+    "description": "Modular acoustic carpet tiles and geometric planks",
+    "enquiry_label": "Interface Carpet Tiles",
+    "display_order": 13,
+    "is_visible": true
+  },
+  {
+    "name": "Outdoor Furniture",
+    "slug": "outdoor",
+    "badge_text": "Terrace &amp; Cafe Seating",
+    "description": "Synthetic wicker &amp; aluminum patio dining sets",
+    "enquiry_label": "Outdoor Furniture Catalogue",
+    "display_order": 14,
+    "is_visible": true
+  },
+  {
+    "name": "Educational Solutions",
+    "slug": "educational",
+    "badge_text": "Institutional Solutions",
+    "description": "Classroom desks, library carrels, hostel beds &amp; auditorium chairs",
+    "enquiry_label": "Educational Solutions Catalogue",
+    "display_order": 15,
+    "is_visible": true
+  },
+  {
+    "name": "Workspace Accessories",
+    "slug": "accessories",
+    "badge_text": "Ergonomic Tools",
+    "description": "Monitor arms, power modules &amp; cable management",
+    "enquiry_label": "Workspace Accessories Catalogue",
+    "display_order": 16,
+    "is_visible": true
+  }
+],
+  "archlabs_products": [
+  {
+    "name": "Veloz",
+    "slug": "veloz",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_4.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Synchro-tilt with multi-position lock, 3D armrest with gel PU pad, Aluminium diecast base, Adjustable headrest.",
+    "display_order": 1,
+    "is_visible": true
+  },
+  {
+    "name": "Feather",
+    "slug": "feather",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_5.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Seamless reclining mechanism, Adjustable armrests, High-resilience cushioning, Adjustable headrest, Smooth castors.",
+    "display_order": 2,
+    "is_visible": true
+  },
+  {
+    "name": "Eiffel",
+    "slug": "eiffel",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_6.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Contoured backrest, Integrated lumbar support, High-density foam seat, Smooth-reclining mechanism.",
+    "display_order": 3,
+    "is_visible": true
+  },
+  {
+    "name": "Mustang",
+    "slug": "mustang",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_7.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Generously-padded seat, Adjustable backrest, Smooth recline, Reinforced heavy-duty base.",
+    "display_order": 4,
+    "is_visible": true
+  },
+  {
+    "name": "Bravo",
+    "slug": "bravo",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_8.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Plush cushioning, Smooth-reclining mechanism, Adjustable armrests, Heavy-duty castors, Robust Frame.",
+    "display_order": 5,
+    "is_visible": true
+  },
+  {
+    "name": "Polar",
+    "slug": "polar",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_9.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "High density moulded foam, Reinforced base, Adjustable armrests, Integrated lumbar support.",
+    "display_order": 6,
+    "is_visible": true
+  },
+  {
+    "name": "Glanza",
+    "slug": "glanza",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_10.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Sturdy Metal base, High density moulded foam, Contoured backrest, Smooth-reclining mechanism.",
+    "display_order": 7,
+    "is_visible": true
+  },
+  {
+    "name": "Yaris",
+    "slug": "yaris",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_11.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Supportive mesh back, Adjustable armrests, High density foam, Smooth-tilt mechanism.",
+    "display_order": 8,
+    "is_visible": true
+  },
+  {
+    "name": "Quartz",
+    "slug": "quartz",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_12.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Robust Metal Frame, Multi-Position Locking, Synchronized reclining, Customizable seating position.",
+    "display_order": 9,
+    "is_visible": true
+  },
+  {
+    "name": "Ditto",
+    "slug": "ditto",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_13.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Gas lift height adjustment, Robust Metal Frame, Premium Cushioning, Ergonomic backrest.",
+    "display_order": 10,
+    "is_visible": true
+  },
+  {
+    "name": "Velfire",
+    "slug": "velfire",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_14.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "High back &amp; Medium back configurations, Breathable mesh back, Robust Metal Frame.",
+    "display_order": 11,
+    "is_visible": true
+  },
+  {
+    "name": "Optimus",
+    "slug": "optimus",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_15.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "High back &amp; Medium back configurations, Premium cushioning, Smooth reclining mechanism.",
+    "display_order": 12,
+    "is_visible": true
+  },
+  {
+    "name": "Zoom",
+    "slug": "zoom",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_16.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "High back &amp; Medium back options, Ergonomic backrest, Premium cushioning, Modern aesthetic.",
+    "display_order": 13,
+    "is_visible": true
+  },
+  {
+    "name": "Comfy",
+    "slug": "comfy",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_17.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Ergonomic backrest, Reclining mechanism, High &amp; Medium back options, Premium cushioning.",
+    "display_order": 14,
+    "is_visible": true
+  },
+  {
+    "name": "Rio",
+    "slug": "rio",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_18.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Adjustable armrests, High &amp; Medium back configurations, Smooth-Reclining Mechanism.",
+    "display_order": 15,
+    "is_visible": true
+  },
+  {
+    "name": "Hilite",
+    "slug": "hilite",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_19.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Light looks, Adjustable armrests, Smooth-rolling castors, High &amp; Medium back.",
+    "display_order": 16,
+    "is_visible": true
+  },
+  {
+    "name": "Ecco",
+    "slug": "ecco",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_20.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "5-star caster base, Essential ergonomic support, Breathable mesh back &amp; seat.",
+    "display_order": 17,
+    "is_visible": true
+  },
+  {
+    "name": "Vento",
+    "slug": "vento",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_21.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Superior lumbar support, 5-star caster base, Adjustable armrests, Stylish design.",
+    "display_order": 18,
+    "is_visible": true
+  },
+  {
+    "name": "Aura",
+    "slug": "aura",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_22.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "All-day comfort, Ergonomic backrest, Effortless functionality in a sleek breathable design.",
+    "display_order": 19,
+    "is_visible": true
+  },
+  {
+    "name": "Dynamic",
+    "slug": "dynamic",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_23.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Smooth-Reclining Mechanism, Ergonomic backrest, Adjustable armrests, Premium Cushioning.",
+    "display_order": 20,
+    "is_visible": true
+  },
+  {
+    "name": "Butterfly",
+    "slug": "butterfly",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_24.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Dynamic flexibility, Ergonomic mesh back, Smooth-Reclining Mechanism.",
+    "display_order": 21,
+    "is_visible": true
+  },
+  {
+    "name": "Mystic",
+    "slug": "mystic",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_25.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Classic Design, Ergonomic backrest, Smooth-Reclining Mechanism, Adjustable armrests.",
+    "display_order": 22,
+    "is_visible": true
+  },
+  {
+    "name": "Breeze",
+    "slug": "breeze",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_26.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Light on looks, Sculpted lumbar support, High back configuration, Breathable mesh.",
+    "display_order": 23,
+    "is_visible": true
+  },
+  {
+    "name": "Matrix 1",
+    "slug": "matrix-1",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_27.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Advanced ergonomics, Bold design language, Exceptional posture support.",
+    "display_order": 24,
+    "is_visible": true
+  },
+  {
+    "name": "Marvel 1 &amp; 2",
+    "slug": "marvel-1-amp-2",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_29.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Central lumbar support, Premium metal detailing, Intelligently engineered to adapt.",
+    "display_order": 25,
+    "is_visible": true
+  },
+  {
+    "name": "Jazz",
+    "slug": "jazz",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_30.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Central lumbar support, Breathable mesh back, Ergonomic features adapting to you.",
+    "display_order": 26,
+    "is_visible": true
+  },
+  {
+    "name": "Flash",
+    "slug": "flash",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_31.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Sleek Design, Breathable mesh back, Ergonomic features keeping you focused.",
+    "display_order": 27,
+    "is_visible": true
+  },
+  {
+    "name": "Bonai",
+    "slug": "bonai",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_32.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Distinctive back-frame structure, 5-star caster base, Perfect posture support.",
+    "display_order": 28,
+    "is_visible": true
+  },
+  {
+    "name": "X Mesh",
+    "slug": "x-mesh",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_33.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Essential features, Breathable mesh, 5-star caster base, Premium cushioning.",
+    "display_order": 29,
+    "is_visible": true
+  },
+  {
+    "name": "Spenser",
+    "slug": "spenser",
+    "series_slug": "mesh-series",
+    "image_url": "images/archlabs/pages/page_34.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Distinctive back frame, Integrated lumbar support, Reliable everyday performance.",
+    "display_order": 30,
+    "is_visible": true
+  },
+  {
+    "name": "Luxe",
+    "slug": "luxe",
+    "series_slug": "leather-series",
+    "image_url": "images/archlabs/pages/page_36.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Luxurious diamond stitch quilted upholstery, 3D adjustable armrests, Class 4 gas lift, Seat slide adjustment.",
+    "display_order": 1,
+    "is_visible": true
+  },
+  {
+    "name": "Elara",
+    "slug": "elara",
+    "series_slug": "leather-series",
+    "image_url": "images/archlabs/pages/page_37.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Contoured high back, Deep multi-density cushioning, Synchronized tilt with seat slide, 3D armrests.",
+    "display_order": 2,
+    "is_visible": true
+  },
+  {
+    "name": "Regent",
+    "slug": "regent",
+    "series_slug": "leather-series",
+    "image_url": "images/archlabs/pages/page_38.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Tall commanding high back, Fixed chrome armrests, Strong metal chrome frame, Premium leatherette.",
+    "display_order": 3,
+    "is_visible": true
+  },
+  {
+    "name": "Forma",
+    "slug": "forma",
+    "series_slug": "leather-series",
+    "image_url": "images/archlabs/pages/page_39.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Signature ribbed horizontal channel cushioning, Floating headrest, Exposed chrome accents.",
+    "display_order": 4,
+    "is_visible": true
+  },
+  {
+    "name": "Nero",
+    "slug": "nero",
+    "series_slug": "leather-series",
+    "image_url": "images/archlabs/pages/page_40.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Streamlined silhouette, Horizontal channel tufting, Fixed chrome arms, Pneumatic lift height adjustment.",
+    "display_order": 5,
+    "is_visible": true
+  },
+  {
+    "name": "Arc Standard",
+    "slug": "arc-standard",
+    "series_slug": "training-series",
+    "image_url": "images/archlabs/pages/page_43.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Ventilated back, Lightweight &amp; durable build, Seat/Back with handle options.",
+    "display_order": 1,
+    "is_visible": true
+  },
+  {
+    "name": "Cove Cushioned",
+    "slug": "cove-cushioned",
+    "series_slug": "training-series",
+    "image_url": "images/archlabs/pages/page_44.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Breathable fabric cushioning, Extra comfort &amp; focus, Low maintenance build.",
+    "display_order": 2,
+    "is_visible": true
+  },
+  {
+    "name": "Pivot Writing Table",
+    "slug": "pivot-writing-table",
+    "series_slug": "training-series",
+    "image_url": "images/archlabs/pages/page_45.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Integrated writing tablet, Configured for note-taking, Handle &amp; Cushion variants.",
+    "display_order": 3,
+    "is_visible": true
+  },
+  {
+    "name": "Pivot Full Writing Table",
+    "slug": "pivot-full-writing-table",
+    "series_slug": "training-series",
+    "image_url": "images/archlabs/pages/page_46.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Full writing surface for examination &amp; training, Enhanced comfort, Cushion option.",
+    "display_order": 4,
+    "is_visible": true
+  },
+  {
+    "name": "Stack Storage Variants",
+    "slug": "stack-storage-variants",
+    "series_slug": "training-series",
+    "image_url": "images/archlabs/pages/page_47.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Under-seat storage wire basket for bags &amp; books, Open back with storage &amp; cushion options.",
+    "display_order": 5,
+    "is_visible": true
+  },
+  {
+    "name": "ArchTwin",
+    "slug": "archtwin",
+    "series_slug": "training-series",
+    "image_url": "images/archlabs/pages/page_49.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Distinctive twin-back design with built-in handles, available in Sky Blue, Fresh Green, Sage Green.",
+    "display_order": 6,
+    "is_visible": true
+  },
+  {
+    "name": "ArchTwin Flip-Up Table",
+    "slug": "archtwin-flip-up-table",
+    "series_slug": "training-series",
+    "image_url": "images/archlabs/pages/page_50.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Smart training chair with flip-up writing tablet for on-the-go collaborative learning.",
+    "display_order": 7,
+    "is_visible": true
+  },
+  {
+    "name": "Metro Linea 2 Seater",
+    "slug": "metro-linea-2-seater",
+    "series_slug": "metro-linea",
+    "image_url": "images/archlabs/pages/page_53.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Corrosion-resistant steel public bench, Charcoal Black finish, Low maintenance &amp; durable.",
+    "display_order": 1,
+    "is_visible": true
+  },
+  {
+    "name": "Metro Linea 3 Seater",
+    "slug": "metro-linea-3-seater",
+    "series_slug": "metro-linea",
+    "image_url": "images/archlabs/pages/page_54.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Red Wine powder-coated finish, Heavy-duty 3-seater public waiting bench.",
+    "display_order": 2,
+    "is_visible": true
+  },
+  {
+    "name": "Metro Linea 5 Seater",
+    "slug": "metro-linea-5-seater",
+    "series_slug": "metro-linea",
+    "image_url": "images/archlabs/pages/page_55.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Silver Grey 5-seater high-capacity waiting bench for busy transit hubs &amp; financial institutions.",
+    "display_order": 3,
+    "is_visible": true
+  },
+  {
+    "name": "AC01 Stack Chair",
+    "slug": "ac01-stack-chair",
+    "series_slug": "cafeteria-series",
+    "image_url": "images/archlabs/pages/page_57.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Lightweight, durable stackable cafeteria chair designed for everyday high-volume dining.",
+    "display_order": 1,
+    "is_visible": true
+  },
+  {
+    "name": "AC02 Curve Chair",
+    "slug": "ac02-curve-chair",
+    "series_slug": "cafeteria-series",
+    "image_url": "images/archlabs/pages/page_58.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Comfortable contoured shell chair for corporate pantries, cafes, and resturants.",
+    "display_order": 2,
+    "is_visible": true
+  },
+  {
+    "name": "AC03 Arc Chair",
+    "slug": "ac03-arc-chair",
+    "series_slug": "cafeteria-series",
+    "image_url": "images/archlabs/pages/page_59.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Where Comfort Meets Style. Sleek curved profile available in multiple vibrant color shades.",
+    "display_order": 3,
+    "is_visible": true
+  },
+  {
+    "name": "AC04 Spindle Chair",
+    "slug": "ac04-spindle-chair",
+    "series_slug": "cafeteria-series",
+    "image_url": "images/archlabs/pages/page_60.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Timeless spindle back design bringing character and color to breakout spaces.",
+    "display_order": 4,
+    "is_visible": true
+  },
+  {
+    "name": "AC06 Timber Chair",
+    "slug": "ac06-timber-chair",
+    "series_slug": "cafeteria-series",
+    "image_url": "images/archlabs/pages/page_61.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Simple form, vibrant colors, durable polypropelene &amp; wood finish options.",
+    "display_order": 5,
+    "is_visible": true
+  },
+  {
+    "name": "AC07 Lounge Chair",
+    "slug": "ac07-lounge-chair",
+    "series_slug": "cafeteria-series",
+    "image_url": "images/archlabs/pages/page_62.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Stylish yet simple form for modern cafeteria lounges and reception corners.",
+    "display_order": 6,
+    "is_visible": true
+  },
+  {
+    "name": "AC08 Crest Chair",
+    "slug": "ac08-crest-chair",
+    "series_slug": "cafeteria-series",
+    "image_url": "images/archlabs/pages/page_63.png",
+    "badge_label": "ArchLabs Seating",
+    "description": "Elevate your space with Modern Elegance. Premium molded cafe armchair.",
+    "display_order": 7,
+    "is_visible": true
+  }
+],
   "categories": [
     {
       "name": "Workstations",
@@ -1437,14 +2105,33 @@ function sanitizeRecord(table, record) {
     return clean;
 }
 
+const _cmsMemCache = new Map();
+const _CMS_CACHE_TTL = 30000; // 30 seconds
+
 // Global Store State Manager (Supabase Database Priority + Fail-Safe Seed & Cache Merger)
 const CMSDataStore = {
-    get: async function(table) {
+    clearCache: function(table) {
+        if (table) {
+            _cmsMemCache.delete(table);
+        } else {
+            _cmsMemCache.clear();
+        }
+        if (typeof localStorage !== 'undefined') {
+            try { localStorage.setItem('vishista_cms_updated', Date.now().toString()); } catch (e) {}
+        }
+    },
+
+    get: async function(table, forceFresh = false) {
+        const cached = _cmsMemCache.get(table);
+        if (!forceFresh && cached && (Date.now() - cached.time < _CMS_CACHE_TTL)) {
+            return cached.data;
+        }
+
         const client = getSupabaseClient();
         if (client && !_cmsMissingTables.has(table)) {
             try {
                 let query = client.from(table).select('*');
-                if (['products', 'categories', 'subcategories', 'projects', 'featured_collections', 'gallery'].includes(table)) {
+                if (['products', 'categories', 'subcategories', 'projects', 'featured_collections', 'gallery', 'archlabs_series', 'archlabs_products'].includes(table)) {
                     query = query.order('display_order', { ascending: true });
                 }
                 const { data, error } = await query;
@@ -1455,6 +2142,7 @@ const CMSDataStore = {
                     }
                     console.warn(`[CMSDataStore] Supabase fetch notice for '${table}':`, error.message);
                 } else if (Array.isArray(data) && data.length > 0) {
+                    _cmsMemCache.set(table, { data, time: Date.now() });
                     return data;
                 }
             } catch (e) {
@@ -1462,6 +2150,7 @@ const CMSDataStore = {
             }
         }
         const seedItems = (typeof VISHISTA_SEED_DATA !== 'undefined' && VISHISTA_SEED_DATA && VISHISTA_SEED_DATA[table]) ? VISHISTA_SEED_DATA[table] : [];
+        _cmsMemCache.set(table, { data: seedItems, time: Date.now() });
         return seedItems;
     },
 
@@ -1497,7 +2186,8 @@ const CMSDataStore = {
                 }
             }
         }
-        return await this.get(table);
+        this.clearCache(table);
+        return await this.get(table, true);
     },
 
     insertRecord: async function(table, record) {
@@ -1506,7 +2196,8 @@ const CMSDataStore = {
         const clean = sanitizeRecord(table, record);
         const { data, error } = await client.from(table).insert([clean]).select();
         if (error) throw new Error(`Supabase insert error on '${table}': ${error.message}`);
-        return await this.get(table);
+        this.clearCache(table);
+        return await this.get(table, true);
     },
 
     updateRecord: async function(table, identifier, record) {
@@ -1528,7 +2219,8 @@ const CMSDataStore = {
             }
         }
         if (error) throw new Error(`Supabase update error on '${table}': ${error.message}`);
-        return await this.get(table);
+        this.clearCache(table);
+        return await this.get(table, true);
     },
 
     deleteRecord: async function(table, identifier) {
@@ -1550,7 +2242,8 @@ const CMSDataStore = {
             }
         }
         if (error) throw new Error(`Supabase delete error on '${table}': ${error.message}`);
-        return await this.get(table);
+        this.clearCache(table);
+        return await this.get(table, true);
     }
 };
 

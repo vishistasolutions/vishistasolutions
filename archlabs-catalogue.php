@@ -36,7 +36,7 @@
             </div>
             <div class="modal-body p-4 bg-light">
                 <p class="text-secondary fw-semibold mb-3">Select a series below to isolate and view only that specific collection:</p>
-                <div class="row g-2">
+                <div class="row g-2" id="archlabs-filter-buttons">
                     <div class="col-12 mb-1">
                         <button type="button" class="btn btn-danger w-100 text-start py-2.5 px-3 fw-bold rounded-3" onclick="filterExclusiveSeries('all')" data-bs-dismiss="modal" style="background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%); border: none;">
                             ✓ Show All Series (Complete Showcase)
@@ -131,6 +131,12 @@
 <!-- Main Catalogue Container -->
 <div class="py-5 bg-white">
     <div class="tf-container">
+
+        <!-- CMS Dynamic Container (populated by public-sync.js when DB has data) -->
+        <div id="archlabs-cms-container" style="display:none;"></div>
+
+        <!-- Static Fallback Content (hidden when CMS loads) -->
+        <div id="archlabs-static-content">
 
         <!-- 1. MESH SERIES -->
         <section id="mesh-series" class="catalogue-series-section mb-5 pt-4" data-series-slug="mesh-series">
@@ -1397,6 +1403,7 @@
             </div>
         </section>
 
+        </div><!-- end archlabs-static-content -->
     </div>
 </div>
 
