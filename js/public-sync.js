@@ -97,6 +97,10 @@ async function syncHeroSection() {
         const newSerialized = slideImages.join('|||');
         const existingSlides = wrapper.querySelectorAll('.hero-slide');
 
+        try {
+            localStorage.setItem('vishista_hero_slides_cache', newSerialized);
+        } catch(e) {}
+
         if (currentSerialized !== newSerialized || existingSlides.length !== slideImages.length) {
             wrapper.setAttribute('data-current-slides', newSerialized);
             let html = '';

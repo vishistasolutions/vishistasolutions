@@ -32,6 +32,12 @@
     <link rel="shortcut icon" href="images/logo/logo-mark.png?v=2">
     <link rel="apple-touch-icon-precomposed" href="images/logo/logo-mark.png?v=2">
 
+    <!-- Preconnect to CDN for instant image loads -->
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
+    <!-- Preload first hero slide image for instant display -->
+    <link rel="preload" as="image" href="https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1600/v1788356777/zgdduc32ml0shodrryoa.png" fetchpriority="high">
+
     <!-- Supabase SDK & CMS Public Sync Engine -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
     <script src="js/supabase-config.js" defer></script>
@@ -1074,20 +1080,45 @@
 <!-- Animated Hero Section -->
 <section class="hero-animated-section position-relative text-white overflow-hidden py-5 d-flex align-items-center" style="min-height: 88vh;">
     <!-- Animated Background Image Container with Auto Slider -->
-    <div class="hero-bg-animated-wrapper" data-current-slides="">
+    <div class="hero-bg-animated-wrapper" data-current-slides="https://res.cloudinary.com/iw4ntmv5/image/upload/v1788356777/zgdduc32ml0shodrryoa.png|||https://res.cloudinary.com/iw4ntmv5/image/upload/v1788357112/rbn0fmeikwtfslwwg1bt.jpg|||https://res.cloudinary.com/iw4ntmv5/image/upload/v1788357123/dktdfg0qz4wfmziqpnyc.jpg|||https://res.cloudinary.com/iw4ntmv5/image/upload/v1788405583/hssnqrduqzptl2jj0cjd.png">
+        <div class="hero-slide active" style="background-image: url('https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1600/v1788356777/zgdduc32ml0shodrryoa.png'); background-size: cover; background-position: center center; background-repeat: no-repeat;"></div>
+        <div class="hero-slide" style="background-image: url('https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1600/v1788357112/rbn0fmeikwtfslwwg1bt.jpg'); background-size: cover; background-position: center center; background-repeat: no-repeat;"></div>
+        <div class="hero-slide" style="background-image: url('https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1600/v1788357123/dktdfg0qz4wfmziqpnyc.jpg'); background-size: cover; background-position: center center; background-repeat: no-repeat;"></div>
+        <div class="hero-slide" style="background-image: url('https://res.cloudinary.com/iw4ntmv5/image/upload/f_auto,q_auto,w_1600/v1788405583/hssnqrduqzptl2jj0cjd.png'); background-size: cover; background-position: center center; background-repeat: no-repeat;"></div>
         <div class="hero-bg-overlay"></div>
     </div>
     <script>
         (function() {
+            try {
+                var cached = localStorage.getItem('vishista_hero_slides_cache');
+                var wrapper = document.querySelector('.hero-bg-animated-wrapper');
+                if (cached && wrapper && wrapper.getAttribute('data-current-slides') !== cached) {
+                    var urls = cached.split('|||').map(function(s){return s.trim();}).filter(Boolean);
+                    if (urls.length > 0) {
+                        wrapper.setAttribute('data-current-slides', cached);
+                        var h = '';
+                        urls.forEach(function(u, idx) {
+                            var opt = (u.indexOf('res.cloudinary.com') !== -1 && u.indexOf('/f_auto') === -1) ? u.replace('/upload/', '/upload/f_auto,q_auto,w_1600/') : u;
+                            h += '<div class="hero-slide ' + (idx === 0 ? 'active' : '') + '" style="background-image: url(\'' + opt + '\'); background-size: cover; background-position: center center; background-repeat: no-repeat;"></div>';
+                        });
+                        h += '<div class="hero-bg-overlay"></div>';
+                        wrapper.innerHTML = h;
+                    }
+                }
+            } catch(e){}
+
             var wrapper = document.querySelector('.hero-bg-animated-wrapper');
             if (wrapper && !window._heroSliderInterval) {
                 var slides = wrapper.querySelectorAll('.hero-slide');
                 if (slides.length > 1) {
                     var curIdx = 0;
                     window._heroSliderInterval = setInterval(function() {
-                        slides[curIdx].classList.remove('active');
-                        curIdx = (curIdx + 1) % slides.length;
-                        slides[curIdx].classList.add('active');
+                        var currentSlides = wrapper.querySelectorAll('.hero-slide');
+                        if (currentSlides.length > 1) {
+                            currentSlides[curIdx].classList.remove('active');
+                            curIdx = (curIdx + 1) % currentSlides.length;
+                            currentSlides[curIdx].classList.add('active');
+                        }
                     }, 3000);
                 }
             }
@@ -1123,7 +1154,7 @@
 
 <style>
     .hero-animated-section {
-        background-color: #0f0f0f;
+        background: #1c1917 radial-gradient(circle at 50% 50%, #292524 0%, #141414 100%);
         overflow: hidden !important;
         scrollbar-width: none !important;
         -ms-overflow-style: none !important;

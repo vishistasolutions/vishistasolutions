@@ -1873,11 +1873,11 @@ const VISHISTA_SEED_DATA = {
     {
       "heading": "Transforming Workspaces.<br><span class=\"text-gradient-red\">Elevating Possibilities.</span>",
       "description": "Premium office furniture, interior systems, and turnkey workspace solutions designed for modern corporate businesses, MNCs, educational institutions, and professional environments.",
-      "slide_1": "images/sections/hero-slide-1.png",
-      "slide_2": "images/sections/hero-slide-2.png",
-      "slide_3": "images/sections/hero-slide-3.png",
-      "background_image": "images/sections/hero-slide-1.png",
-      "is_custom_updated": false
+      "slide_1": "https://res.cloudinary.com/iw4ntmv5/image/upload/v1788356777/zgdduc32ml0shodrryoa.png",
+      "slide_2": "https://res.cloudinary.com/iw4ntmv5/image/upload/v1788357112/rbn0fmeikwtfslwwg1bt.jpg",
+      "slide_3": "https://res.cloudinary.com/iw4ntmv5/image/upload/v1788357123/dktdfg0qz4wfmziqpnyc.jpg",
+      "background_image": "https://res.cloudinary.com/iw4ntmv5/image/upload/v1788356777/zgdduc32ml0shodrryoa.png|||https://res.cloudinary.com/iw4ntmv5/image/upload/v1788357112/rbn0fmeikwtfslwwg1bt.jpg|||https://res.cloudinary.com/iw4ntmv5/image/upload/v1788357123/dktdfg0qz4wfmziqpnyc.jpg|||https://res.cloudinary.com/iw4ntmv5/image/upload/v1788405583/hssnqrduqzptl2jj0cjd.png",
+      "is_custom_updated": true
     }
   ],
   "about_sections": [
